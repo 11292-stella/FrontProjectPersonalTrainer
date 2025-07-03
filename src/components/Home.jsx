@@ -177,7 +177,7 @@ const Home = function () {
                       <Button
                         variant="primary"
                         type="submit"
-                        className="w-100 mt-md-0 mt-2 button-css "
+                        className="w-100 mt-md-0 mt-2 button-css  "
                       >
                         Submit
                       </Button>
