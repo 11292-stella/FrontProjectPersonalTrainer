@@ -60,19 +60,20 @@ const Home = function () {
                   <span className="spanText1">
                     Benvenuto in Sneaky Workout: L'Arena dove Conquisti Te
                     Stesso.
-                  </span>
+                  </span>{" "}
+                  <br />
                   Se sei qui, è perché non ti accontenti della mediocrità. Sai
                   che dentro di te c'è una forza inespressa, un potenziale che
-                  aspetta solo di essere liberato. Su Sneaky Workout,
+                  aspetta solo di essere liberato. <br /> Su Sneaky Workout,
                   trasformiamo ogni ostacolo in una pietra miliare e spingiamo i
-                  tuoi limiti oltre ogni immaginazione. Questo non è solo un
-                  sito di allenamento; è la tua palestra personale, il tuo campo
-                  di battaglia quotidiano.
+                  tuoi limiti oltre ogni immaginazione. <br /> Questo non è solo
+                  un sito di allenamento; è la tua palestra personale, il tuo
+                  campo di battaglia quotidiano.
                 </p>
               </Col>
-              <Col md={3}>
+              <Col md={4}>
                 <Image
-                  src="/primaImg.png"
+                  src="/1img.jpeg"
                   alt="Descrizione immagine"
                   fluid
                   rounded
@@ -84,9 +85,9 @@ const Home = function () {
 
           <Container className="my-5">
             <Row>
-              <Col md={3}>
+              <Col md={4}>
                 <Image
-                  src="/primaImg.png"
+                  src="/2img.jpeg"
                   alt="Descrizione immagine"
                   fluid
                   rounded
@@ -98,13 +99,13 @@ const Home = function () {
                 className="d-flex flex-column mt-md-0 mt-3 justify-content-center text-light "
               >
                 <p className="text-p">
-                  🔥 Qui si tratta di ben più che sollevare pesi o correre
-                  chilometri. Si tratta di forgiare la tua disciplina, temprare
-                  la tua volontà e dominare ogni aspetto della tua vita. Ti
-                  offriamo le strategie per vincere le tue battaglie: sia che si
-                  tratti di superare la fatica fisica, di affrontare le sfide
-                  mentali che ti tengono bloccato, o di trovare la forza per
-                  imporsi nel mondo sociale.
+                  Qui si tratta di ben più che sollevare pesi o correre
+                  chilometri. <br /> Si tratta di forgiare la tua disciplina,
+                  temprare la tua volontà e dominare ogni aspetto della tua
+                  vita. <br /> Ti offriamo le strategie per vincere le tue
+                  battaglie: <br /> sia che si tratti di superare la fatica
+                  fisica, di affrontare le sfide mentali che ti tengono
+                  bloccato, o di trovare la forza per imporsi nel mondo sociale.
                 </p>
               </Col>
             </Row>
@@ -117,28 +118,26 @@ const Home = function () {
                 className="d-flex flex-column mt-md-0 mt-3 justify-content-center text-light "
               >
                 <p className="text-p">
-                  🔥 Sei un neofita che cerca una guida solida e motivante? O
-                  sei già un veterano dell'allenamento in cerca di quel qualcosa
-                  in più per superare il plateau? Indipendentemente dal tuo
-                  livello, su Sneaky Workout troverai accesso esclusivo a
-                  programmi di allenamento all'avanguardia, risorse didattiche
-                  approfondite e una motivazione inossidabile per non mollare
-                  mai.
+                  Sei un neofita che cerca una guida solida e motivante? <br />{" "}
+                  O sei già un veterano dell'allenamento in cerca di quel
+                  qualcosa in più per superare il plateau? <br />{" "}
+                  Indipendentemente dal tuo livello, su Sneaky Workout troverai
+                  accesso esclusivo a programmi di allenamento all'avanguardia,
+                  risorse didattiche approfondite e una motivazione inossidabile
+                  per non mollare mai.
                 </p>
               </Col>
-              <Col md={3}>
+              <Col md={4}>
                 <Image
-                  src="/primaImg.png"
+                  src="/3img.jpeg"
                   alt="Descrizione immagine"
                   fluid
                   rounded
                   className="home-img"
                 />
               </Col>
-              <h2 className="textCit text-light">
-                Il tuo percorso verso la grandezza inizia qui. Sei pronto a
-                svelare il tuo vero potenziale? Registrati subito a Sneaky
-                Workout e inizia a scrivere la tua storia di successo!
+              <h2 className="textCit h1-reg text-light mt-5  text-center">
+                Il tuo percorso verso la grandezza inizia qui. <br />
               </h2>
             </Row>
           </Container>
@@ -192,7 +191,11 @@ const Home = function () {
                     </Col>
 
                     <Col md={4}>
-                      <Button variant="primary" type="submit" className="w-100">
+                      <Button
+                        variant="primary"
+                        type="submit"
+                        className="w-100 mt-md-0 mt-2"
+                      >
                         Submit
                       </Button>
                     </Col>
