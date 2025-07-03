@@ -27,27 +27,10 @@ const Home = function () {
                   andare avanti. <br /> <br />È così che si vince!"
                 </h2>
               </Col>
-              {/* <Col
-                md={12}
-                className="mt-3 text-light text-start text-lg-center"
-              >
-                <p className="text-p">
-                  🔥{" "}
-                  <span className="spanText1">Benvenuto su Sneaky Workout</span>
-                  <br /> qui ogni sfida diventa un' opportunità, ogni limite un
-                  punto di partenza. <br />
-                  Qui non si tratta solo di allenarsi, ma di superare te stesso,
-                  giorno dopo giorno. <br /> 💪 Che tu sia all’inizio del tuo
-                  percorso o pronto a spingerti oltre, qui troverai gli
-                  strumenti, le guide e la motivazione per raggiungere i tuoi
-                  obiettivi. <br /> Perché il successo non si ottiene per
-                  caso... si conquista con il sudore.
-                </p>
-              </Col> */}
             </Row>
           </Container>
 
-          {/**sperimento */}
+          {/**contenuto testuale con immagini */}
 
           <Container className="my-5">
             <Row>
@@ -142,11 +125,11 @@ const Home = function () {
             </Row>
           </Container>
 
-          {/**sperimento */}
+          {/**contenuto testuale con immagini */}
 
           <h1 className="h1-reg text-center mb-5">Registrati subito !!</h1>
           {/**Form  */}
-          <Container>
+          <Container className="form-text">
             <Row>
               <Col
                 md={12}
@@ -190,11 +173,11 @@ const Home = function () {
                       </Form.Group>
                     </Col>
 
-                    <Col md={4}>
+                    <Col md={4} xs={4}>
                       <Button
                         variant="primary"
                         type="submit"
-                        className="w-100 mt-md-0 mt-2"
+                        className="w-100 mt-md-0 mt-2 button-css "
                       >
                         Submit
                       </Button>
