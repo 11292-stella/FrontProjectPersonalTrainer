@@ -4,9 +4,9 @@ import "../styles/footer.css"
 const Footer = function () {
   return (
     <>
-      <Container fluid className="bg-dark text-light mt-auto py-1 footer-css">
+      <Container fluid className="bg-dark text-light mt-auto py-2 footer-css">
         <Row>
-          <Col className="text-start text-secondary">
+          <Col className="text-center text-secondary">
             <p>🇮🇹 Italia | English (UK)</p>
             <p>
               Copyright © {new Date().getFullYear()} Sneaky Workout – Tutti i
@@ -15,7 +15,6 @@ const Footer = function () {
             <p>
               P.IVA 01234567890 | <a href="/termini">Termini e condizioni</a> |{" "}
               <a href="/privacy">Privacy e cookie</a> |{" "}
-              <a href="/contatti">Contatti</a> |{" "}
               <a href="/feedback">Lascia un feedback</a>
             </p>
           </Col>

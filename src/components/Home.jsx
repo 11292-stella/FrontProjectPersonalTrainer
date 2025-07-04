@@ -1,7 +1,33 @@
 import { Container, Row, Col, Image, Form, Button } from "react-bootstrap"
 import "../styles/home.css"
+import { useDispatch, useSelector } from "react-redux"
+import { loginUser } from "../redux/action/authActions"
+import { useState } from "react"
 
 const Home = function () {
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [nome, setNome] = useState("")
+  const [cognome, setCognome] = useState("")
+  const [email, setEmail] = useState("")
+
+  const dispatch = useDispatch()
+  const { loading, error, user } = useSelector((state) => state.authLog)
+
+  const submit = (e) => {
+    e.preventDefault()
+
+    const credentials = {
+      username,
+      password,
+      nome,
+      cognome,
+      email,
+    }
+
+    dispatch(loginUser(credentials))
+  }
+
   return (
     <>
       <div className="min-vh-100 d-flex flex-column home-background">
@@ -135,31 +161,48 @@ const Home = function () {
                 md={12}
                 className=" d-flex justify-content-center text-light "
               >
-                <Form>
+                <Form onSubmit={submit}>
                   <Row className="mb-3">
                     <Form.Group as={Col}>
                       <Form.Label>Nome</Form.Label>
                       <Form.Control
                         type="text"
+                        value={nome}
                         placeholder="Enter first name"
+                        onChange={(e) => setNome(e.target.value)}
                       />
                     </Form.Group>
 
                     <Form.Group as={Col}>
                       <Form.Label>Cognome</Form.Label>
-                      <Form.Control type="text" placeholder="Enter last name" />
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter last name"
+                        value={cognome}
+                        onChange={(e) => setCognome(e.target.value)}
+                      />
                     </Form.Group>
                   </Row>
 
                   <Row className="mb-3">
                     <Form.Group as={Col} controlId="formGridEmail">
                       <Form.Label>Email</Form.Label>
-                      <Form.Control type="email" placeholder="Enter email" />
+                      <Form.Control
+                        type="email"
+                        placeholder="Enter email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridPassword">
                       <Form.Label>Password</Form.Label>
-                      <Form.Control type="password" placeholder="Password" />
+                      <Form.Control
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
                     </Form.Group>
                   </Row>
                   <Row className="mb-3 align-items-end">
@@ -169,6 +212,8 @@ const Home = function () {
                         <Form.Control
                           type="text"
                           placeholder="Enter username"
+                          value={username}
+                          onChange={(e) => setUsername(e.target.value)}
                         />
                       </Form.Group>
                     </Col>
@@ -178,9 +223,11 @@ const Home = function () {
                         variant="primary"
                         type="submit"
                         className="w-100 mt-md-0 mt-2 button-css  "
+                        disabled={loading}
                       >
-                        Submit
+                        {loading ? "Caricamento..." : "accedi"}
                       </Button>
+                      {error && alert("errore")}
                     </Col>
                   </Row>
                 </Form>
