@@ -1,0 +1,69 @@
+h1 {
+  color: #e0d9d9;
+  text-shadow: 0 -1px 4px #fff, 0 -2px 10px #ff0, 0 -10px 20px #ff8000,
+    0 -18px 40px #f00;
+  font-family: "Fraunces", serif;
+}
+
+.home-background {
+  background-image: url("/public/sfondo1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  background-blend-mode: darken;
+}
+
+.img1 {
+  background-image: url("/an1.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 600px;
+  height: 600px;
+  position: relative;
+}
+
+.muscle-btn-pettorale {
+  position: absolute;
+  top: 28%;
+  left: 31%;
+  border: 1px solid #edebeb;
+  color: #f5eeee;
+  font: 1em sans-serif;
+  border-radius: 30px;
+  z-index: 2;
+}
+
+.muscle-btn-deltoide {
+  position: absolute;
+  top: 25%;
+  left: 67%;
+  border: 1px solid #fbf7f7;
+  color: #ffffff;
+  font: 1em sans-serif;
+  border-radius: 30px;
+  z-index: 2;
+}
+
+.muscle-btn-trapezio {
+  position: absolute;
+  top: 18%;
+  left: 58%;
+  border: 1px solid #fbf7f7;
+  color: #ffffff;
+  font: 1em sans-serif;
+  border-radius: 30px;
+  z-index: 2;
+}
+
+.muscle-btn-bicipite {
+  position: absolute;
+  top: 40%;
+  left: 15%;
+  border: 1px solid #fbf7f7;
+  color: #ffffff;
+  font: 1em sans-serif;
+  border-radius: 30px;
+  z-index: 2;
+}
