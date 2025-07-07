@@ -27,21 +27,21 @@ h1 {
 .muscle-btn-pettorale {
   position: absolute;
   top: 28%;
-  left: 31%;
+  left: 34%;
   border: 1px solid #edebeb;
   color: #f5eeee;
-  font: 1em sans-serif;
+  font: 0.9em sans-serif;
   border-radius: 30px;
   z-index: 2;
 }
 
 .muscle-btn-deltoide {
   position: absolute;
-  top: 25%;
+  top: 28%;
   left: 67%;
   border: 1px solid #fbf7f7;
   color: #ffffff;
-  font: 1em sans-serif;
+  font: 0.9em sans-serif;
   border-radius: 30px;
   z-index: 2;
 }
@@ -52,7 +52,7 @@ h1 {
   left: 58%;
   border: 1px solid #fbf7f7;
   color: #ffffff;
-  font: 1em sans-serif;
+  font: 0.9em sans-serif;
   border-radius: 30px;
   z-index: 2;
 }
@@ -60,10 +60,43 @@ h1 {
 .muscle-btn-bicipite {
   position: absolute;
   top: 40%;
-  left: 15%;
+  left: 18%;
   border: 1px solid #fbf7f7;
   color: #ffffff;
-  font: 1em sans-serif;
+  font: 0.9em sans-serif;
+  border-radius: 30px;
+  z-index: 2;
+}
+
+.muscle-btn-brachioradiale {
+  position: absolute;
+  top: 57%;
+  left: 5%;
+  border: 1px solid #fbf7f7;
+  color: #ffffff;
+  font: 0.9em sans-serif;
+  border-radius: 30px;
+  z-index: 2;
+}
+
+.muscle-btn-obliquo-esterno {
+  position: absolute;
+  top: 53%;
+  left: 57%;
+  border: 1px solid #fbf7f7;
+  color: #ffffff;
+  font: 0.8em sans-serif;
+  border-radius: 30px;
+  z-index: 2;
+}
+
+.muscle-btn-retto-addome {
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  border: 1px solid #fbf7f7;
+  color: #ffffff;
+  font: 0.8em sans-serif;
   border-radius: 30px;
   z-index: 2;
 }

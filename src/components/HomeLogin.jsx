@@ -28,28 +28,47 @@ const HomeLogin = function () {
               >
                 <div className="img1">
                   <Button
-                    variant="outline-info"
+                    variant="outline-info py-0"
                     className="muscle-btn-pettorale"
                   >
                     pettorale
                   </Button>
                   <Button
-                    variant="outline-info"
+                    variant="outline-info py-0"
                     className="muscle-btn-deltoide"
                   >
                     deltoide
                   </Button>
                   <Button
-                    variant="outline-info"
+                    variant="outline-info py-0"
                     className="muscle-btn-trapezio"
                   >
                     trapezio
                   </Button>
                   <Button
-                    variant="outline-info"
+                    variant="outline-info py-0"
                     className="muscle-btn-bicipite"
                   >
                     bicipite
+                  </Button>
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-brachioradiale"
+                  >
+                    brachioradiale
+                  </Button>
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-obliquo-esterno"
+                  >
+                    obliquo <br /> esterno
+                  </Button>
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-retto-addome"
+                  >
+                    retto <br />
+                    dell'addome
                   </Button>
                 </div>
               </Col>
