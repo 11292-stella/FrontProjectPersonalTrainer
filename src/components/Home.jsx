@@ -1,8 +1,17 @@
-import { Container, Row, Col, Image, Form, Button } from "react-bootstrap"
+import {
+  Container,
+  Row,
+  Col,
+  Image,
+  Form,
+  Button,
+  Alert,
+} from "react-bootstrap"
 import "../styles/home.css"
 import { useDispatch, useSelector } from "react-redux"
 import { loginUser } from "../redux/action/authActions"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { registerUser } from "../redux/action/registerActions"
 
 const Home = function () {
   const [username, setUsername] = useState("")
@@ -12,7 +21,31 @@ const Home = function () {
   const [email, setEmail] = useState("")
 
   const dispatch = useDispatch()
+  const dispatch1 = useDispatch()
+  const {
+    loading: registerLoading,
+    error: registerError,
+    user: registeredUser,
+  } = useSelector((state) => state.register)
   const { loading, error, user } = useSelector((state) => state.authLog)
+  const [showLoginAlert, setShowLoginAlert] = useState(false)
+  const [showRegisterAlert, setShowRegisterAlert] = useState(false)
+
+  useEffect(() => {
+    if (user) {
+      setShowLoginAlert(true)
+      const timer = setTimeout(() => setShowLoginAlert(false), 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [user])
+
+  useEffect(() => {
+    if (registeredUser) {
+      setShowRegisterAlert(true)
+      const timer = setTimeout(() => setShowRegisterAlert(false), 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [registeredUser])
 
   const submit = (e) => {
     e.preventDefault()
@@ -26,6 +59,20 @@ const Home = function () {
     }
 
     dispatch(loginUser(credentials))
+  }
+
+  const submitRegister = (e) => {
+    e.preventDefault()
+
+    const credentials = {
+      username,
+      password,
+      nome,
+      cognome,
+      email,
+    }
+
+    dispatch1(registerUser(credentials))
   }
 
   return (
@@ -124,7 +171,7 @@ const Home = function () {
             <Row>
               <Col
                 md={8}
-                className="d-flex flex-column mt-md-0 mt-3 justify-content-center text-light "
+                className="d-flex flex-column mt-md-0 mt-3 justify-content-center text-light order-2 order-md-1"
               >
                 <p className="text-p">
                   Sei un neofita che cerca una guida solida e motivante? <br />{" "}
@@ -136,7 +183,7 @@ const Home = function () {
                   per non mollare mai.
                 </p>
               </Col>
-              <Col md={4}>
+              <Col md={4} className="order-1 order-md-2">
                 <Image
                   src="/3img.jpeg"
                   alt="Descrizione immagine"
@@ -145,9 +192,6 @@ const Home = function () {
                   className="home-img"
                 />
               </Col>
-              <h2 className="textCit h1-reg text-light mt-5  text-center">
-                Il tuo percorso verso la grandezza inizia qui. <br />
-              </h2>
             </Row>
           </Container>
 
@@ -218,17 +262,43 @@ const Home = function () {
                       </Form.Group>
                     </Col>
 
-                    <Col md={4} xs={4}>
-                      <Button
-                        variant="primary"
-                        type="submit"
-                        className="w-100 mt-md-0 mt-2 button-css  "
-                        disabled={loading}
-                      >
-                        {loading ? "Caricamento..." : "accedi"}
-                      </Button>
-                      {error && alert("errore")}
-                    </Col>
+                    <Row className="mb-3">
+                      <Col xs={6}>
+                        <Button
+                          variant="success"
+                          type="submit"
+                          className="w-100 button-css mt-3"
+                          disabled={loading}
+                        >
+                          {loading ? "Caricamento..." : "Accedi"}
+                        </Button>
+                        {showLoginAlert && (
+                          <Alert variant="success" className="mt-3 button-css">
+                            Login effettuato con successo!
+                          </Alert>
+                        )}
+                      </Col>
+
+                      <Col xs={6}>
+                        <Button
+                          variant="success"
+                          type="button"
+                          onClick={submitRegister}
+                          disabled={registerLoading}
+                          className="w-100 button-css mt-3"
+                        >
+                          {registerLoading
+                            ? "Registrazione in corso..."
+                            : "Registrati"}
+                        </Button>
+
+                        {showRegisterAlert && (
+                          <Alert variant="success" className="mt-3 button-css">
+                            Registrazione avvenuta con successo!
+                          </Alert>
+                        )}
+                      </Col>
+                    </Row>
                   </Row>
                 </Form>
               </Col>

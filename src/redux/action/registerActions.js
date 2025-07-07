@@ -6,8 +6,9 @@ export const REGISTER_SUCCESS = "REGISTER_SUCCESS"
 
 export const REGISTER_FAILURE = "REGISTER_FAILURE"
 
-export const registerSuccess = () => ({
+export const registerSuccess = (userData) => ({
   type: REGISTER_SUCCESS,
+  payload: userData,
 })
 
 export const registerRequest = (user) => ({
@@ -23,14 +24,14 @@ export const registerFailure = (error) => ({
 export const registerUser = (credentials) => {
   return (dispatch) => {
     dispatch(registerRequest(credentials))
+
+    axios
+      .post("http://localhost:8080/auth/register", credentials)
+      .then((response) => {
+        dispatch(registerSuccess(response.data))
+      })
+      .catch((error) => {
+        dispatch(registerFailure(error.message))
+      })
   }
 }
-
-axios
-  .post("http://localhost:8080/auth/register", credentials)
-  .then((response) => {
-    dispatch(registerSuccess(response.data))
-  })
-  .catch((error) => {
-    dispatch(registerFailure(error.message))
-  })
