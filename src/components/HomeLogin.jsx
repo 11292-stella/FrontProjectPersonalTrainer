@@ -17,16 +17,39 @@ const HomeLogin = function () {
         <main className="flex-grow-1">
           <Container>
             <Row className="justify-content-center">
-              <h1 className="text-center mt-4">
+              <h1 className="text-center mt-5">
                 Dall'Anatomia all'Allenamento: <br /> La Tua Guida Definitiva ai
                 Muscoli e agli Esercizi
               </h1>
+
+              <p className="primop text-center">
+                <h2 className="text-center mt-3 mb-4">
+                  Costruisci la tua forza, <br /> un muscolo alla volta
+                </h2>{" "}
+                Ogni grande trasformazione inizia con la consapevolezza. <br />{" "}
+                In questo viaggio esploreremo la parte superiore del corpo: la
+                sede della tua potenza,
+                <br /> della tua postura e della tua determinazione. <br />{" "}
+                <br /> Scoprirai i muscoli che ti permettono di sollevare,
+                spingere, tirare e abbracciare il mondo con più forza. Per ogni
+                gruppo muscolare ti guideremo con: una spiegazione semplice e
+                chiara; <br /> gli esercizi più efficaci per scolpire il tuo
+                corpo e superare i tuoi limiti. <br /> Il tuo corpo è il tuo
+                strumento. <br /> Impara a conoscerlo, allenalo con intenzione,
+                e diventa la versione più forte di te stesso. <br /> <br />{" "}
+                <span className="citazioni">
+                  {" "}
+                  “La forza non nasce solo nei muscoli, ma nella volontà di
+                  usarli per sollevare te stesso ogni giorno, dentro e fuori la
+                  palestra.”
+                </span>
+              </p>
 
               <Col
                 md={8}
                 className="d-flex justify-content-center align-items-center mt-5"
               >
-                <div className="img1">
+                <div className="img1 ">
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-pettorale"
@@ -55,7 +78,8 @@ const HomeLogin = function () {
                     variant="outline-info py-0"
                     className="muscle-btn-brachioradiale"
                   >
-                    brachioradiale
+                    brachio <br />
+                    radiale
                   </Button>
                   <Button
                     variant="outline-info py-0"
@@ -68,10 +92,201 @@ const HomeLogin = function () {
                     className="muscle-btn-retto-addome"
                   >
                     retto <br />
-                    dell'addome
+                    addome
+                  </Button>
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-trasverso-addome"
+                  >
+                    trasverso <br />
+                    addome
+                  </Button>
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-estensori-mano"
+                  >
+                    estensori <br />
+                    mano
                   </Button>
                 </div>
               </Col>
+
+              {/**Seconda img */}
+
+              <p className="primop text-center mt-5">
+                <h2 className="mb-3">
+                  La forza parte da terra: esplora la parte inferiore del corpo{" "}
+                </h2>{" "}
+                La vera potenza non si costruisce solo con le braccia, ma si
+                radica nelle fondamenta: <br /> gambe forti, glutei attivi,
+                stabilità incrollabile. <br />
+                In questa sezione ci immergeremo nell’anatomia della parte
+                inferiore del corpo <br /> <br />
+                la struttura che ti sostiene, ti spinge avanti e ti permette di
+                affrontare ogni sfida con slancio. <br /> Scoprirai i muscoli
+                che ti permettono di camminare, correre, saltare e restare
+                saldo, anche quando la vita ti mette alla prova. <br /> Per ogni
+                gruppo muscolare ti guideremo con: <br /> una spiegazione
+                semplice e chiara; <br /> gli esercizi più efficaci per
+                rafforzare le gambe, i glutei e il core, scolpendo il tuo corpo
+                e superando i tuoi limiti. <br /> Il tuo corpo è il tuo
+                strumento. <br /> Costruisci la forza che parte da dentro… e da
+                terra. <br /> <br />{" "}
+                <span className="citazioni">
+                  “Non puoi costruire un grattacielo su fondamenta fragili.
+                  Allena le tue basi, e tutto il resto si eleverà con te.”
+                </span>
+              </p>
+              <Col
+                md={8}
+                className="d-flex justify-content-center align-items-center mt-5"
+              >
+                <div className="img2">
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-retto-femorale"
+                  >
+                    retto <br />
+                    femorale
+                  </Button>
+
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-vasto-mediale"
+                  >
+                    vasto
+                    <br />
+                    mediale
+                  </Button>
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-vasto-laterale"
+                  >
+                    vasto
+                    <br />
+                    laterale
+                  </Button>
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-sartorio"
+                  >
+                    sarorio
+                  </Button>
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-medio-gluteo"
+                  >
+                    medio
+                    <br />
+                    gluteo
+                  </Button>
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-tibiale-anteriore"
+                  >
+                    tibiale
+                    <br />
+                    anteriore
+                  </Button>
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-soleo"
+                  >
+                    soleo
+                  </Button>
+                </div>
+              </Col>
+
+              {/**terza img */}
+              <p className="primop text-center mt-5">
+                Dopo aver esplorato la parte inferiore del corpo, è il momento
+                di volgere lo sguardo alla parte posteriore: <br /> la struttura
+                che ti sorregge, ti stabilizza e ti accompagna in ogni
+                movimento. <br /> <br /> Molti dei muscoli coinvolti <br /> come
+                glutei e bicipiti femorali <br />
+                li abbiamo già incontrati, ma qui li vedremo nel contesto più
+                ampio della catena posteriore, <br /> insieme ai dorsali e ad
+                altri stabilizzatori fondamentali. <br /> <br /> Allenare ciò
+                che sta dietro significa costruire forza autentica, equilibrio e
+                resistenza. <br /> Perché è proprio ciò che non si vede a
+                determinare quanto lontano puoi arrivare. <br /> <br />{" "}
+                <span className="citazioni">
+                  {" "}
+                  “La stabilità non si conquista con l’apparenza, ma con la
+                  forza silenziosa che lavora dietro ogni passo.”
+                </span>
+              </p>
+              <Col
+                md={8}
+                className="d-flex justify-content-center align-items-center mt-5"
+              >
+                <div className="img3">
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-grande-dorsale"
+                  >
+                    grande <br /> dorsale
+                  </Button>
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-sotto-spinato"
+                  >
+                    sotto <br /> spinato
+                  </Button>
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-tricipite"
+                  >
+                    tricipite
+                  </Button>
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-grande-gluteo"
+                  >
+                    grande <br /> gluteo
+                  </Button>
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-bicipite-femorale"
+                  >
+                    bicipite <br /> femorale
+                  </Button>
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-grande-abduttore"
+                  >
+                    grande <br /> abduttore
+                  </Button>
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-gastrocnemio"
+                  >
+                    gastrocnemio
+                  </Button>
+                  <Button
+                    variant="outline-info py-0"
+                    className="muscle-btn-peroneo-breve"
+                  >
+                    peroneo <br /> breve
+                  </Button>
+                </div>
+              </Col>
+              {/**Fine img */}
+              <p className="primop text-center mt-5">
+                <h2>Ci siamo!!</h2>
+                Ora che hai esplorato i muscoli di tutte le parti del corpo e
+                compreso come allenarli, <br />
+                sei pronto a portare il tuo percorso di fitness al livello
+                successivo. <br /> <br />
+                Per continuare a divertirti e sperimentare con il tuo
+                allenamento, crea la tua scheda di allenamento personalizzata.{" "}
+                <br /> <br /> È un modo divertente per mettere in pratica ciò
+                che hai imparato e scoprire nuove combinazioni di esercizi!
+              </p>
+
+              <a className="text-center mb-4 link-crea " href="">
+                Crea la tua scheda!
+              </a>
             </Row>
           </Container>
         </main>
