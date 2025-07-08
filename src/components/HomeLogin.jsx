@@ -6,11 +6,20 @@ import {
   Form,
   Button,
   Alert,
+  Modal,
 } from "react-bootstrap"
+
+import muscleImages from "../muscleImages.json"
+
+import { useDispatch, useSelector } from "react-redux"
+import { openModal, closeModal } from "../redux/action/modalActions"
 
 import "../styles/homeLogin.css"
 
 const HomeLogin = function () {
+  const dispatch = useDispatch()
+  const { isOpen, selectedMuscle } = useSelector((state) => state.modal)
+  const imageSrc = muscleImages[selectedMuscle]
   return (
     <>
       <div className="min-vh-100 d-flex justify-content-center align-items-center home-background">
@@ -53,30 +62,35 @@ const HomeLogin = function () {
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-pettorale"
+                    onClick={() => dispatch(openModal("pettorale"))}
                   >
                     pettorale
                   </Button>
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-deltoide"
+                    onClick={() => dispatch(openModal("deltoide"))}
                   >
                     deltoide
                   </Button>
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-trapezio"
+                    onClick={() => dispatch(openModal("trapezio"))}
                   >
                     trapezio
                   </Button>
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-bicipite"
+                    onClick={() => dispatch(openModal("bicipite"))}
                   >
                     bicipite
                   </Button>
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-brachioradiale"
+                    onClick={() => dispatch(openModal("brachioradiale"))}
                   >
                     brachio <br />
                     radiale
@@ -84,12 +98,14 @@ const HomeLogin = function () {
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-obliquo-esterno"
+                    onClick={() => dispatch(openModal("obliqui esterno"))}
                   >
                     obliquo <br /> esterno
                   </Button>
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-retto-addome"
+                    onClick={() => dispatch(openModal("retto addome"))}
                   >
                     retto <br />
                     addome
@@ -97,6 +113,7 @@ const HomeLogin = function () {
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-trasverso-addome"
+                    onClick={() => dispatch(openModal("trasverso addome"))}
                   >
                     trasverso <br />
                     addome
@@ -104,11 +121,39 @@ const HomeLogin = function () {
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-estensori-mano"
+                    onClick={() => dispatch(openModal("estensori mano"))}
                   >
                     estensori <br />
                     mano
                   </Button>
                 </div>
+
+                <Modal show={isOpen} onHide={() => dispatch(closeModal())}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>{selectedMuscle}</Modal.Title>
+                  </Modal.Header>
+
+                  <Modal.Body>
+                    <img
+                      src={imageSrc}
+                      alt={selectedMuscle}
+                      style={{ width: "100%", borderRadius: "10px" }}
+                    />
+                    <p className="mt-3">
+                      Descrizione del muscolo {selectedMuscle} qui...
+                    </p>
+                  </Modal.Body>
+
+                  <Modal.Footer>
+                    <Button
+                      variant="secondary"
+                      onClick={() => dispatch(closeModal())}
+                      className="button-css"
+                    >
+                      Chiudi
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
               </Col>
 
               {/**Seconda img */}
