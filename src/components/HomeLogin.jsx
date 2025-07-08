@@ -283,7 +283,7 @@ const HomeLogin = function () {
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-sotto-spinato"
-                    onClick={() => dispatch(openModal("sotto spinato"))}
+                    onClick={() => dispatch(openModal("sottospinato"))}
                   >
                     sotto <br /> spinato
                   </Button>
