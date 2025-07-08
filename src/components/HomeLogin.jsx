@@ -190,6 +190,7 @@ const HomeLogin = function () {
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-retto-femorale"
+                    onClick={() => dispatch(openModal("retto femorale"))}
                   >
                     retto <br />
                     femorale
@@ -198,6 +199,7 @@ const HomeLogin = function () {
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-vasto-mediale"
+                    onClick={() => dispatch(openModal("vasto mediale"))}
                   >
                     vasto
                     <br />
@@ -206,6 +208,7 @@ const HomeLogin = function () {
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-vasto-laterale"
+                    onClick={() => dispatch(openModal("vasto laterale"))}
                   >
                     vasto
                     <br />
@@ -214,12 +217,14 @@ const HomeLogin = function () {
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-sartorio"
+                    onClick={() => dispatch(openModal("sartorio"))}
                   >
                     sarorio
                   </Button>
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-medio-gluteo"
+                    onClick={() => dispatch(openModal("medio gluteo"))}
                   >
                     medio
                     <br />
@@ -228,6 +233,7 @@ const HomeLogin = function () {
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-tibiale-anteriore"
+                    onClick={() => dispatch(openModal("tibiale anteriore"))}
                   >
                     tibiale
                     <br />
@@ -236,6 +242,7 @@ const HomeLogin = function () {
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-soleo"
+                    onClick={() => dispatch(openModal("soleo"))}
                   >
                     soleo
                   </Button>
@@ -269,48 +276,56 @@ const HomeLogin = function () {
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-grande-dorsale"
+                    onClick={() => dispatch(openModal("grande dorsale"))}
                   >
                     grande <br /> dorsale
                   </Button>
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-sotto-spinato"
+                    onClick={() => dispatch(openModal("sotto spinato"))}
                   >
                     sotto <br /> spinato
                   </Button>
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-tricipite"
+                    onClick={() => dispatch(openModal("tricipite"))}
                   >
                     tricipite
                   </Button>
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-grande-gluteo"
+                    onClick={() => dispatch(openModal("grande gluteo"))}
                   >
                     grande <br /> gluteo
                   </Button>
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-bicipite-femorale"
+                    onClick={() => dispatch(openModal("femorale"))}
                   >
                     bicipite <br /> femorale
                   </Button>
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-grande-abduttore"
+                    onClick={() => dispatch(openModal("grande abduttore"))}
                   >
                     grande <br /> abduttore
                   </Button>
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-gastrocnemio"
+                    onClick={() => dispatch(openModal("gastrocnemio"))}
                   >
                     gastrocnemio
                   </Button>
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-peroneo-breve"
+                    onClick={() => dispatch(openModal("peroneo breve"))}
                   >
                     peroneo <br /> breve
                   </Button>
