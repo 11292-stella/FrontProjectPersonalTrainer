@@ -1,8 +1,9 @@
 {
   "pettorale": "/muscoli/pettorale.png",
+  "deltoide": "/muscoli/deltoide.png",
   "bicipite": "/muscoli/bicipite.png",
   "brachioradiale": "/muscoli/brachioradiale.png",
-  "obliqui esterno": "/muscoli/obliquo esterno.png",
+  "obliquo esterno": "/muscoli/obliquo esterno.png",
   "retto addome": "/muscoli/retto addome.png",
   "trasverso addome": "/muscoli/trasverso addome.png",
   "trapezio": "/muscoli/trapezio.png",
@@ -16,5 +17,10 @@
   "tricipite": "/muscoli/tricipite.png",
   "sottospinato": "/muscoli/sotto spinato.png",
   "grande dorsale": "/muscoli/grande dorsale.png",
-  "grande gluteo": "/muscoli/grande gluteo.png"
+  "grande gluteo": "/muscoli/grande gluteo.png",
+  "sartorio": "/muscoli/sartorio.png",
+  "bicipite femorale": "/muscoli/bicipite femorale.png",
+  "grande adduttore": "/muscoli/grande adduttore.png",
+  "gastrocnemio": "/muscoli/gastrocnemio.png",
+  "peroneo breve": "/muscoli/peroneo breve.png"
 }

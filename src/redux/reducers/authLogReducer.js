@@ -1,35 +1,33 @@
 import {
   LOGIN_FAILURE,
   LOGIN_REQUEST,
-  LOGIN_SUCCES,
+  LOGIN_SUCCESS,
 } from "../action/authActions"
 
 const initialState = {
-  loading: false,
-  user: null,
+  token: null,
+  isLoggedIn: false,
   error: null,
 }
 
 const authLogReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN_REQUEST:
+    case "LOGIN_REQUEST":
+      return { ...state, error: null }
+
+    case "LOGIN_SUCCESS":
       return {
         ...state,
-        loading: true,
+        token: action.payload,
+        isLoggedIn: true,
         error: null,
       }
 
-    case LOGIN_SUCCES:
+    case "LOGIN_FAILURE":
       return {
         ...state,
-        loading: false,
-        user: action.payload,
-      }
-
-    case LOGIN_FAILURE:
-      return {
-        ...state,
-        loading: false,
+        token: null,
+        isLoggedIn: false,
         error: action.payload,
       }
 

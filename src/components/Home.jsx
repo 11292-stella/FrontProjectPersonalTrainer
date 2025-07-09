@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { loginUser } from "../redux/action/authActions"
 import { useState, useEffect } from "react"
 import { registerUser } from "../redux/action/registerActions"
+import { useNavigate } from "react-router-dom"
 
 const Home = function () {
   const [username, setUsername] = useState("")
@@ -21,23 +22,26 @@ const Home = function () {
   const [email, setEmail] = useState("")
 
   const dispatch = useDispatch()
-  const dispatch1 = useDispatch()
+  const navigate = useNavigate()
+
   const {
     loading: registerLoading,
     error: registerError,
     user: registeredUser,
   } = useSelector((state) => state.register)
-  const { loading, error, user } = useSelector((state) => state.authLog)
+
+  const { loading, error, token, isLoggedIn } = useSelector(
+    (state) => state.authLog
+  )
+
   const [showLoginAlert, setShowLoginAlert] = useState(false)
   const [showRegisterAlert, setShowRegisterAlert] = useState(false)
 
   useEffect(() => {
-    if (user) {
-      setShowLoginAlert(true)
-      const timer = setTimeout(() => setShowLoginAlert(false), 3000)
-      return () => clearTimeout(timer)
+    if (isLoggedIn) {
+      navigate("/homeLogin")
     }
-  }, [user])
+  }, [isLoggedIn, navigate])
 
   useEffect(() => {
     if (registeredUser) {
@@ -49,30 +53,14 @@ const Home = function () {
 
   const submit = (e) => {
     e.preventDefault()
-
-    const credentials = {
-      username,
-      password,
-      nome,
-      cognome,
-      email,
-    }
-
+    const credentials = { username, password, nome, cognome, email }
     dispatch(loginUser(credentials))
   }
 
   const submitRegister = (e) => {
     e.preventDefault()
-
-    const credentials = {
-      username,
-      password,
-      nome,
-      cognome,
-      email,
-    }
-
-    dispatch1(registerUser(credentials))
+    const credentials = { username, password, nome, cognome, email }
+    dispatch(registerUser(credentials))
   }
 
   return (

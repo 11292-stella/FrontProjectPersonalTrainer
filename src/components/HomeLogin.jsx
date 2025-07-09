@@ -13,6 +13,8 @@ import muscleImages from "../muscleImages.json"
 
 import { useDispatch, useSelector } from "react-redux"
 import { openModal, closeModal } from "../redux/action/modalActions"
+import { useEffect } from "react"
+import { fetchMuscles } from "../redux/action/muscleActions"
 
 import "../styles/homeLogin.css"
 
@@ -20,6 +22,23 @@ const HomeLogin = function () {
   const dispatch = useDispatch()
   const { isOpen, selectedMuscle } = useSelector((state) => state.modal)
   const imageSrc = muscleImages[selectedMuscle]
+  const { muscles, loading, error } = useSelector((state) => state.muscles)
+  const token = useSelector((state) => state.authLog.token)
+  useEffect(() => {
+    console.log("Token in HomeLogin useEffect:", token)
+
+    if (token) {
+      dispatch(fetchMuscles())
+    }
+  }, [token, dispatch])
+
+  const selectedMuscleData = muscles.find(
+    (muscle) => muscle.nome.toLowerCase() === selectedMuscle?.toLowerCase()
+  )
+  console.log("selectedMuscle:", selectedMuscle)
+  console.log("muscles:", muscles)
+  console.log("selectedMuscleData:", selectedMuscleData)
+
   return (
     <>
       <div className="min-vh-100 d-flex justify-content-center align-items-center home-background">
@@ -98,7 +117,7 @@ const HomeLogin = function () {
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-obliquo-esterno"
-                    onClick={() => dispatch(openModal("obliqui esterno"))}
+                    onClick={() => dispatch(openModal("obliquo esterno"))}
                   >
                     obliquo <br /> esterno
                   </Button>
@@ -130,17 +149,20 @@ const HomeLogin = function () {
 
                 <Modal show={isOpen} onHide={() => dispatch(closeModal())}>
                   <Modal.Header closeButton>
-                    <Modal.Title>{selectedMuscle}</Modal.Title>
+                    <Modal.Title>
+                      {selectedMuscleData?.nome || selectedMuscle}
+                    </Modal.Title>
                   </Modal.Header>
 
                   <Modal.Body>
                     <img
-                      src={imageSrc}
+                      src={`/muscoli/${selectedMuscle}.png`}
                       alt={selectedMuscle}
                       style={{ width: "100%", borderRadius: "10px" }}
                     />
                     <p className="mt-3">
-                      Descrizione del muscolo {selectedMuscle} qui...
+                      {selectedMuscleData?.descrizione ||
+                        "Descrizione non disponibile."}
                     </p>
                   </Modal.Body>
 
@@ -304,16 +326,16 @@ const HomeLogin = function () {
                   <Button
                     variant="outline-info py-0"
                     className="muscle-btn-bicipite-femorale"
-                    onClick={() => dispatch(openModal("femorale"))}
+                    onClick={() => dispatch(openModal("bicipite femorale"))}
                   >
                     bicipite <br /> femorale
                   </Button>
                   <Button
                     variant="outline-info py-0"
-                    className="muscle-btn-grande-abduttore"
-                    onClick={() => dispatch(openModal("grande abduttore"))}
+                    className="muscle-btn-grande-adduttore"
+                    onClick={() => dispatch(openModal("grande adduttore"))}
                   >
-                    grande <br /> abduttore
+                    grande <br /> adduttore
                   </Button>
                   <Button
                     variant="outline-info py-0"

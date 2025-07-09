@@ -9,6 +9,7 @@ import {
 } from "react-bootstrap"
 
 import "../styles/navBar.css"
+import { NavLink } from "react-router-dom"
 
 const NavBar = function () {
   return (
@@ -45,8 +46,12 @@ const NavBar = function () {
             </Form>
 
             <Nav className="ms-auto">
-              <Nav.Link href="/home">Home</Nav.Link>
-              <Nav.Link href="/chi-sono">Chi sono</Nav.Link>
+              <Nav.Link as={NavLink} to="/home">
+                Home
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="/homeLogin">
+                homeLogin
+              </Nav.Link>
               <Nav.Link href="/contatti">Contatti</Nav.Link>
               <Nav.Link href="/prodotti">Prodotti</Nav.Link>
               <NavDropdown title="Altro" id="basic-nav-dropdown">
