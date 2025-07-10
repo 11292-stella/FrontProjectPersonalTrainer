@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { openModal, closeModal } from "../redux/action/modalActions"
 import { useEffect } from "react"
 import { fetchMuscles } from "../redux/action/muscleActions"
+import { fetchEsercizi } from "../redux/action/esercizioAction"
 
 import "../styles/homeLogin.css"
 
@@ -24,6 +25,8 @@ const HomeLogin = function () {
   const imageSrc = muscleImages[selectedMuscle]
   const { muscles, loading, error } = useSelector((state) => state.muscles)
   const token = useSelector((state) => state.authLog.token)
+  const esercizi = useSelector((state) => state.esercizi.exercise)
+
   useEffect(() => {
     console.log("Token in HomeLogin useEffect:", token)
 
@@ -32,11 +35,20 @@ const HomeLogin = function () {
     }
   }, [token, dispatch])
 
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchEsercizi())
+    }
+  }, [token, dispatch])
   const selectedMuscleData = Array.isArray(muscles)
     ? muscles.find(
         (muscle) => muscle.nome.toLowerCase() === selectedMuscle?.toLowerCase()
       )
     : undefined
+
+  const selectedEsercizi = esercizi.filter(
+    (es) => es.muscolo?.id === selectedMuscleData?.id
+  )
 
   console.log("selectedMuscle:", selectedMuscle)
   console.log("muscles:", muscles)
@@ -163,10 +175,30 @@ const HomeLogin = function () {
                       alt={selectedMuscle}
                       style={{ width: "100%", borderRadius: "10px" }}
                     />
-                    <p className="mt-3">
+                    <p className="mt-3 descrizioni">
                       {selectedMuscleData?.descrizione ||
                         "Descrizione non disponibile."}
                     </p>
+
+                    {selectedEsercizi.length > 0 ? (
+                      <>
+                        <h5 className="mt-4 descrizioni">
+                          Esercizi consigliati:
+                        </h5>
+                        <ul className="ps-3">
+                          {selectedEsercizi.map((esercizio, index) => (
+                            <li key={index} className="mb-2 descrizioni">
+                              <strong>{esercizio.nome}</strong>:{" "}
+                              {esercizio.descrizione}
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    ) : (
+                      <p className="text-muted  mt-3">
+                        Nessun esercizio disponibile per questo muscolo.
+                      </p>
+                    )}
                   </Modal.Body>
 
                   <Modal.Footer>

@@ -20,7 +20,7 @@ export const fetchMuscles = () => {
       }
 
       const data = await response.json()
-      console.log("🧪 Dati ricevuti dalla fetch muscoli:", data)
+      console.log(" Dati ricevuti dalla fetch muscoli:", data)
 
       dispatch({
         type: FETCH_MUSCLES_SUCCESS,
