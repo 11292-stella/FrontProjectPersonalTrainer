@@ -20,7 +20,12 @@ export const fetchMuscles = () => {
       }
 
       const data = await response.json()
-      dispatch({ type: FETCH_MUSCLES_SUCCESS, payload: data })
+      console.log("🧪 Dati ricevuti dalla fetch muscoli:", data)
+
+      dispatch({
+        type: FETCH_MUSCLES_SUCCESS,
+        payload: Array.isArray(data.content) ? data.content : [],
+      })
     } catch (error) {
       dispatch({ type: FETCH_MUSCLES_FAILURE, payload: error.message })
     }

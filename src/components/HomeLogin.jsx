@@ -32,9 +32,12 @@ const HomeLogin = function () {
     }
   }, [token, dispatch])
 
-  const selectedMuscleData = muscles.find(
-    (muscle) => muscle.nome.toLowerCase() === selectedMuscle?.toLowerCase()
-  )
+  const selectedMuscleData = Array.isArray(muscles)
+    ? muscles.find(
+        (muscle) => muscle.nome.toLowerCase() === selectedMuscle?.toLowerCase()
+      )
+    : undefined
+
   console.log("selectedMuscle:", selectedMuscle)
   console.log("muscles:", muscles)
   console.log("selectedMuscleData:", selectedMuscleData)
@@ -50,7 +53,7 @@ const HomeLogin = function () {
                 Muscoli e agli Esercizi
               </h1>
 
-              <p className="primop text-center">
+              <div className="primop text-center">
                 <h2 className="text-center mt-3 mb-4">
                   Costruisci la tua forza, <br /> un muscolo alla volta
                 </h2>{" "}
@@ -71,7 +74,7 @@ const HomeLogin = function () {
                   usarli per sollevare te stesso ogni giorno, dentro e fuori la
                   palestra.”
                 </span>
-              </p>
+              </div>
 
               <Col
                 md={8}
@@ -180,7 +183,7 @@ const HomeLogin = function () {
 
               {/**Seconda img */}
 
-              <p className="primop text-center mt-5">
+              <div className="primop text-center mt-5">
                 <h2 className="mb-3">
                   La forza parte da terra: esplora la parte inferiore del corpo{" "}
                 </h2>{" "}
@@ -203,7 +206,7 @@ const HomeLogin = function () {
                   “Non puoi costruire un grattacielo su fondamenta fragili.
                   Allena le tue basi, e tutto il resto si eleverà con te.”
                 </span>
-              </p>
+              </div>
               <Col
                 md={8}
                 className="d-flex justify-content-center align-items-center mt-5"
@@ -354,7 +357,7 @@ const HomeLogin = function () {
                 </div>
               </Col>
               {/**Fine img */}
-              <p className="primop text-center mt-5">
+              <div className="primop text-center mt-5">
                 <h2>Ci siamo!!</h2>
                 Ora che hai esplorato i muscoli di tutte le parti del corpo e
                 compreso come allenarli, <br />
@@ -364,7 +367,7 @@ const HomeLogin = function () {
                 allenamento, crea la tua scheda di allenamento personalizzata.{" "}
                 <br /> <br /> È un modo divertente per mettere in pratica ciò
                 che hai imparato e scoprire nuove combinazioni di esercizi!
-              </p>
+              </div>
 
               <a className="text-center mb-4 link-crea " href="">
                 Crea la tua scheda!
