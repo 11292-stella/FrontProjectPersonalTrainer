@@ -47,10 +47,7 @@ const NavBar = function () {
 
             <Nav className="ms-auto">
               <Nav.Link as={NavLink} to="/home">
-                Home
-              </Nav.Link>
-              <Nav.Link as={NavLink} to="/homeLogin">
-                homeLogin
+                home
               </Nav.Link>
               <Nav.Link href="/contatti">Contatti</Nav.Link>
               <Nav.Link href="/prodotti">Prodotti</Nav.Link>

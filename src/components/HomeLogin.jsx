@@ -16,7 +16,7 @@ import { openModal, closeModal } from "../redux/action/modalActions"
 import { useEffect } from "react"
 import { fetchMuscles } from "../redux/action/muscleActions"
 import { fetchEsercizi } from "../redux/action/esercizioAction"
-
+import { Link } from "react-router-dom"
 import "../styles/homeLogin.css"
 
 const HomeLogin = function () {
@@ -401,9 +401,9 @@ const HomeLogin = function () {
                 che hai imparato e scoprire nuove combinazioni di esercizi!
               </div>
 
-              <a className="text-center mb-4 link-crea " href="">
+              <Link to="/crea-scheda" className="text-center mb-4 link-crea">
                 Crea la tua scheda!
-              </a>
+              </Link>
             </Row>
           </Container>
         </main>

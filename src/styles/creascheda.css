@@ -1,0 +1,8 @@
+.creascheda-background {
+  background-image: url("/public/primaImg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  background-blend-mode: darken;
+}
