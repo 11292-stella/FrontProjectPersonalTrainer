@@ -4,6 +4,7 @@ import registerReducer from "../reducers/registerReducer"
 import modalReducer from "../reducers/modalReduce"
 import muscleReducer from "../reducers/muscleReducer"
 import eserciziReduce from "../reducers/eserciziReduce"
+import schedaReduce from "../reducers/schedaReduce"
 
 const uniqueReducer = combineReducers({
   authLog: authLogReducer,
@@ -11,6 +12,7 @@ const uniqueReducer = combineReducers({
   modal: modalReducer,
   muscles: muscleReducer,
   esercizi: eserciziReduce,
+  scheda: schedaReduce,
 })
 
 const store = configureStore({

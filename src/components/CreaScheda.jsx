@@ -1,8 +1,23 @@
-import { Container, Row, Col, Button, Form, Dropdown } from "react-bootstrap"
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Form,
+  Dropdown,
+  Card,
+} from "react-bootstrap"
 import "../styles/creascheda.css"
 import { useState } from "react"
+import { fetchScheda } from "../redux/action/schedaActions"
+import { useDispatch, useSelector } from "react-redux"
 
 const CreaScheda = function () {
+  const dispatch = useDispatch()
+  const esercizi = useSelector((state) => state.scheda.esercizi)
+  const loading = useSelector((state) => state.scheda.loading)
+  const error = useSelector((state) => state.scheda.error)
+
   const [muscoli, setMuscoli] = useState([
     { id: 4, nome: "pettorale" },
     { id: 5, nome: "deltoide" },
@@ -31,6 +46,7 @@ const CreaScheda = function () {
   ])
 
   const [selectedIds, setSelectedIds] = useState([])
+
   const handleCheckboxChange = (id) => {
     setSelectedIds((prev) =>
       prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id]
@@ -39,8 +55,9 @@ const CreaScheda = function () {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("Muscoli selezionati:", selectedIds)
-    // qui poi ci sarà la chiamata al backend
+    if (selectedIds.length > 0) {
+      dispatch(fetchScheda(selectedIds))
+    }
   }
 
   return (
@@ -100,6 +117,52 @@ const CreaScheda = function () {
                     </Button>
                   </div>
                 </Form>
+              </Col>
+
+              {/* Visualizzazione scheda */}
+              <Col md={12} className="mt-5">
+                {loading && (
+                  <p className="text-light text-center">Caricamento...</p>
+                )}
+                {error && (
+                  <p className="text-danger text-center">Errore: {error}</p>
+                )}
+                {esercizi.length > 0 && (
+                  <>
+                    <h2 className="text-center text-light mb-4">
+                      La tua scheda personalizzata
+                    </h2>
+                    <Row className="g-4 justify-content-center">
+                      <Col xs={12} md={10} lg={8} xl={6}>
+                        <Card className="mt-4 mb-3 scheda-p shadow-lg bg-dark text-light">
+                          <Card.Header className="h4 text-center">
+                            Scheda Personalizzata
+                          </Card.Header>
+                          <Card.Body>
+                            {esercizi.map((esercizio, index) => (
+                              <div
+                                key={index}
+                                className="mb-4 border-bottom pb-2"
+                              >
+                                <h5 className="text-center">
+                                  {esercizio.nomeEsercizio}
+                                </h5>
+                                <h6 className="text-light ">
+                                  Muscolo: {esercizio.muscolo}
+                                </h6>
+                                <p>
+                                  {" "}
+                                  <strong>Esercizio:</strong>{" "}
+                                  {esercizio.descrizione}
+                                </p>
+                              </div>
+                            ))}
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    </Row>
+                  </>
+                )}
               </Col>
             </Row>
           </Container>
