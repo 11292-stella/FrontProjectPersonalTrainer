@@ -37,6 +37,11 @@
   padding-bottom: 12px !important;
 }
 
-.modale-scheda {
-  background-color: aliceblue;
+.modale-scheda .btn-close {
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+}
+
+.modale-scheda .btn-close:hover {
+  opacity: 1;
 }

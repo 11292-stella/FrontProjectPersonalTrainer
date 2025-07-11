@@ -62,6 +62,10 @@ const CreaScheda = function () {
       prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id]
     )
   }
+  const handleCloseModal = () => {
+    setShowModal(false)
+    setSelectedScheda(null)
+  }
 
   const handleSaveScheda = () => {
     dispatch(saveScheda(esercizi))
@@ -156,7 +160,7 @@ const CreaScheda = function () {
                       La tua scheda personalizzata
                     </h2>
                     <Row className="g-4 justify-content-center mb-2">
-                      <Col xs={12} md={10} lg={8} xl={6}>
+                      <Col xs={12} md={10} lg={12}>
                         <Card className="mt-4 mb-3 scheda-p shadow-lg bg-dark text-light">
                           <Card.Header className="h4 text-center">
                             Scheda Personalizzata
@@ -187,51 +191,38 @@ const CreaScheda = function () {
 
                         <Row className="g-3 justify-content-center">
                           {savedScheda.map((scheda, idx) => (
-                            <Col xs={12} sm={6} md={6} key={idx}>
-                              <Card
-                                className={`scheda-salvata-card text-light small-card ${
-                                  selectedScheda === idx ? "border-warning" : ""
-                                }`}
-                                style={{ cursor: "pointer" }}
-                                onClick={() =>
-                                  selectedScheda === idx
-                                    ? setSelectedScheda(null)
-                                    : setSelectedScheda(idx)
-                                }
-                              >
-                                <Card.Header className="text-center fw-bold">
-                                  Scheda {idx + 1}
-                                </Card.Header>
-                                <Card.Body>
-                                  <p className="text-truncate">
-                                    {scheda
-                                      .map((es) => es.nomeEsercizio)
-                                      .join(", ")}
-                                  </p>
-                                </Card.Body>
-                              </Card>
-
-                              {/* Espansione singola */}
-                              {selectedScheda === idx && (
-                                <Card className="mt-2 bg-dark text-light p-3">
-                                  {scheda.map((es, i) => (
-                                    <div
-                                      key={i}
-                                      className="mb-3 border-bottom pb-2"
-                                    >
-                                      <h5>{es.nomeEsercizio}</h5>
-                                      <small>Muscolo: {es.muscolo}</small>
-                                      <p>{es.descrizione}</p>
-                                    </div>
-                                  ))}
+                            <Col xs={12} sm={6} md={4} lg={3} xl={2} key={idx}>
+                              {selectedScheda !== idx && (
+                                <Card
+                                  className="scheda-salvata-card text-light small-card"
+                                  style={{ cursor: "pointer" }}
+                                  onClick={() => {
+                                    setSelectedScheda(idx)
+                                    setShowModal(true)
+                                  }}
+                                >
+                                  <Card.Header className="text-center fw-bold">
+                                    Scheda {idx + 1}
+                                  </Card.Header>
+                                  <Card.Body>
+                                    <p className="text-truncate">
+                                      {scheda
+                                        .map((es) => es.nomeEsercizio)
+                                        .join(", ")}
+                                    </p>
+                                  </Card.Body>
                                 </Card>
                               )}
                             </Col>
                           ))}
                         </Row>
+
                         <Modal
                           show={showModal}
-                          onHide={() => setShowModal(false)}
+                          onHide={() => {
+                            setShowModal(false)
+                            setSelectedScheda(null)
+                          }}
                           centered
                           size="lg"
                           className="modale-scheda"
