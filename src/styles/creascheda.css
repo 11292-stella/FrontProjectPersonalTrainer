@@ -21,3 +21,22 @@
   padding-top: 12px !important;
   padding-bottom: 12px !important;
 }
+
+.scheda-salvata-card {
+  background-color: #000 !important;
+  color: white !important;
+
+  background: linear-gradient(to bottom, #1a0000, #000000) !important;
+
+  box-shadow: 0 4px 10px rgba(145, 14, 30, 0.4),
+    inset 0 2px 6px rgba(145, 14, 30, 0.2) !important;
+
+  border-bottom: 1px solid rgba(255, 0, 0, 0.3) !important;
+
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+}
+
+.modale-scheda {
+  background-color: aliceblue;
+}

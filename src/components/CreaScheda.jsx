@@ -6,18 +6,22 @@ import {
   Form,
   Dropdown,
   Card,
+  Modal,
 } from "react-bootstrap"
 import "../styles/creascheda.css"
 import { useState } from "react"
 import { fetchScheda } from "../redux/action/schedaActions"
 import { useDispatch, useSelector } from "react-redux"
+import { saveScheda } from "../redux/action/saveSchedaAction"
 
 const CreaScheda = function () {
   const dispatch = useDispatch()
   const esercizi = useSelector((state) => state.scheda.esercizi)
   const loading = useSelector((state) => state.scheda.loading)
   const error = useSelector((state) => state.scheda.error)
-
+  const selectSavedScheda = (state) => state.saveScheda?.savedScheda || []
+  const [selectedScheda, setSelectedScheda] = useState(null)
+  const [showModal, setShowModal] = useState(false)
   const [muscoli, setMuscoli] = useState([
     { id: 4, nome: "pettorale" },
     { id: 5, nome: "deltoide" },
@@ -45,12 +49,22 @@ const CreaScheda = function () {
     { id: 27, nome: "peroneo breve" },
   ])
 
+  const handleSelectScheda = (scheda) => {
+    setSelectedScheda(scheda)
+    setShowModal(true)
+  }
+
   const [selectedIds, setSelectedIds] = useState([])
+  const savedScheda = useSelector(selectSavedScheda)
 
   const handleCheckboxChange = (id) => {
     setSelectedIds((prev) =>
       prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id]
     )
+  }
+
+  const handleSaveScheda = () => {
+    dispatch(saveScheda(esercizi))
   }
 
   const handleSubmit = (e) => {
@@ -115,6 +129,15 @@ const CreaScheda = function () {
                     <Button type="submit" className="button-css">
                       Genera scheda
                     </Button>
+                    {esercizi.length > 0 && (
+                      <Button
+                        type="button"
+                        className="button-css"
+                        onClick={() => handleSaveScheda()}
+                      >
+                        salva scheda
+                      </Button>
+                    )}
                   </div>
                 </Form>
               </Col>
@@ -132,7 +155,7 @@ const CreaScheda = function () {
                     <h2 className="text-center text-light mb-4">
                       La tua scheda personalizzata
                     </h2>
-                    <Row className="g-4 justify-content-center">
+                    <Row className="g-4 justify-content-center mb-2">
                       <Col xs={12} md={10} lg={8} xl={6}>
                         <Card className="mt-4 mb-3 scheda-p shadow-lg bg-dark text-light">
                           <Card.Header className="h4 text-center">
@@ -159,9 +182,96 @@ const CreaScheda = function () {
                             ))}
                           </Card.Body>
                         </Card>
+
+                        {/**schede salvate */}
+
+                        <Row className="g-3 justify-content-center">
+                          {savedScheda.map((scheda, idx) => (
+                            <Col xs={12} sm={6} md={6} key={idx}>
+                              <Card
+                                className={`scheda-salvata-card text-light small-card ${
+                                  selectedScheda === idx ? "border-warning" : ""
+                                }`}
+                                style={{ cursor: "pointer" }}
+                                onClick={() =>
+                                  selectedScheda === idx
+                                    ? setSelectedScheda(null)
+                                    : setSelectedScheda(idx)
+                                }
+                              >
+                                <Card.Header className="text-center fw-bold">
+                                  Scheda {idx + 1}
+                                </Card.Header>
+                                <Card.Body>
+                                  <p className="text-truncate">
+                                    {scheda
+                                      .map((es) => es.nomeEsercizio)
+                                      .join(", ")}
+                                  </p>
+                                </Card.Body>
+                              </Card>
+
+                              {/* Espansione singola */}
+                              {selectedScheda === idx && (
+                                <Card className="mt-2 bg-dark text-light p-3">
+                                  {scheda.map((es, i) => (
+                                    <div
+                                      key={i}
+                                      className="mb-3 border-bottom pb-2"
+                                    >
+                                      <h5>{es.nomeEsercizio}</h5>
+                                      <small>Muscolo: {es.muscolo}</small>
+                                      <p>{es.descrizione}</p>
+                                    </div>
+                                  ))}
+                                </Card>
+                              )}
+                            </Col>
+                          ))}
+                        </Row>
+                        <Modal
+                          show={showModal}
+                          onHide={() => setShowModal(false)}
+                          centered
+                          size="lg"
+                          className="modale-scheda"
+                        >
+                          <Modal.Header closeButton>
+                            <Modal.Title>Scheda selezionata</Modal.Title>
+                          </Modal.Header>
+                          <Modal.Body>
+                            {selectedScheda !== null &&
+                              savedScheda[selectedScheda]?.map((es, i) => (
+                                <div
+                                  key={i}
+                                  className="mb-3 border-bottom pb-2"
+                                >
+                                  <h5>{es.nomeEsercizio}</h5>
+                                  <small>Muscolo: {es.muscolo}</small>
+                                  <p>{es.descrizione}</p>
+                                </div>
+                              ))}
+                          </Modal.Body>
+                        </Modal>
                       </Col>
                     </Row>
                   </>
+                )}
+                {selectedScheda !== null && savedScheda[selectedScheda] && (
+                  <Card className="mt-5 scheda-p shadow bg-dark text-light">
+                    <Card.Header className="text-center h4">
+                      Scheda selezionata
+                    </Card.Header>
+                    <Card.Body>
+                      {savedScheda[selectedScheda].map((es, i) => (
+                        <div key={i} className="mb-3 border-bottom pb-2">
+                          <h5>{es.nomeEsercizio}</h5>
+                          <small>Muscolo: {es.muscolo}</small>
+                          <p>{es.descrizione}</p>
+                        </div>
+                      ))}
+                    </Card.Body>
+                  </Card>
                 )}
               </Col>
             </Row>

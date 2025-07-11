@@ -20,6 +20,7 @@ const registerReducer = (state = initialState, action) => {
       }
 
     case REGISTER_SUCCESS:
+      console.log("Payload ricevuto dal reducer:", action.payload)
       return {
         ...state,
         loading: false,

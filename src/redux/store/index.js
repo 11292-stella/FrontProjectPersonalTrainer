@@ -5,17 +5,17 @@ import modalReducer from "../reducers/modalReduce"
 import muscleReducer from "../reducers/muscleReducer"
 import eserciziReduce from "../reducers/eserciziReduce"
 import schedaReduce from "../reducers/schedaReduce"
-
-const uniqueReducer = combineReducers({
-  authLog: authLogReducer,
-  register: registerReducer,
-  modal: modalReducer,
-  muscles: muscleReducer,
-  esercizi: eserciziReduce,
-  scheda: schedaReduce,
-})
+import saveSchedaReducer from "../reducers/saveSchedaReducer"
 
 const store = configureStore({
-  reducer: uniqueReducer,
+  reducer: {
+    authLog: authLogReducer,
+    register: registerReducer,
+    modal: modalReducer,
+    muscles: muscleReducer,
+    esercizi: eserciziReduce,
+    scheda: schedaReduce,
+    saveScheda: saveSchedaReducer,
+  },
 })
 export default store
