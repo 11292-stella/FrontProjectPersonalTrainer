@@ -18,6 +18,7 @@ import { fetchMuscles } from "../redux/action/muscleActions"
 import { fetchEsercizi } from "../redux/action/esercizioAction"
 import { Link } from "react-router-dom"
 import "../styles/homeLogin.css"
+import { fetchSchedeSalvate } from "../redux/action/saveSchedaAction"
 
 const HomeLogin = function () {
   const dispatch = useDispatch()
@@ -26,6 +27,13 @@ const HomeLogin = function () {
   const { muscles, loading, error } = useSelector((state) => state.muscles)
   const token = useSelector((state) => state.authLog.token)
   const esercizi = useSelector((state) => state.esercizi.exercise)
+
+  useEffect(() => {
+    console.log("Token al primo accesso:", token)
+    if (token && token.length > 10) {
+      dispatch(fetchSchedeSalvate())
+    }
+  }, [token])
 
   useEffect(() => {
     console.log("Token in HomeLogin useEffect:", token)

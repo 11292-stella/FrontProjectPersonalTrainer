@@ -2,6 +2,7 @@ import {
   LOGIN_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
+  LOGOUT,
 } from "../action/authActions"
 
 const initialState = {
@@ -29,6 +30,13 @@ const authLogReducer = (state = initialState, action) => {
         token: null,
         isLoggedIn: false,
         error: action.payload,
+      }
+
+    case "LOGOUT":
+      return {
+        token: null,
+        isLoggedIn: false,
+        error: null,
       }
 
     default:

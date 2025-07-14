@@ -7,6 +7,16 @@ import eserciziReduce from "../reducers/eserciziReduce"
 import schedaReduce from "../reducers/schedaReduce"
 import saveSchedaReducer from "../reducers/saveSchedaReducer"
 
+const tokenFromStorage = localStorage.getItem("token")
+
+const preloadedState = {
+  authLog: {
+    token: tokenFromStorage || null,
+    isLoggedIn: !!tokenFromStorage,
+    error: null,
+  },
+}
+
 const store = configureStore({
   reducer: {
     authLog: authLogReducer,
@@ -17,5 +27,6 @@ const store = configureStore({
     scheda: schedaReduce,
     saveScheda: saveSchedaReducer,
   },
+  preloadedState,
 })
 export default store

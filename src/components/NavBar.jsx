@@ -10,8 +10,19 @@ import {
 
 import "../styles/navBar.css"
 import { NavLink } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { logoutUser } from "../redux/action/authActions"
 
 const NavBar = function () {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    dispatch(logoutUser())
+    navigate("/login")
+  }
+
   return (
     <>
       <Navbar
@@ -61,6 +72,13 @@ const NavBar = function () {
                   Separated link
                 </NavDropdown.Item>
               </NavDropdown>
+              <Button
+                variant="outline-light"
+                onClick={handleLogout}
+                className="ms-3"
+              >
+                Esci
+              </Button>
             </Nav>
           </Navbar.Collapse>
         </Container>
