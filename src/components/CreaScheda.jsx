@@ -16,12 +16,18 @@ import {
   saveScheda,
   fetchSchedeSalvate,
 } from "../redux/action/saveSchedaAction"
+import { fetchSchedePubbliche } from "../redux/action/schedaActions"
 
 const CreaScheda = function () {
   const dispatch = useDispatch()
   const esercizi = useSelector((state) => state.scheda.esercizi)
   console.log("Esercizi ricevuti:", esercizi)
   const saving = useSelector((state) => state.saveScheda.saving)
+  const schedePubbliche = useSelector(
+    (state) => state.schedePubbliche?.listaPubbliche || []
+  )
+  const [selectedSchedaPubblica, setSelectedSchedaPubblica] = useState(null)
+  const [showModalPubblica, setShowModalPubblica] = useState(false)
 
   const loading = useSelector((state) => state.scheda.loading)
   const error = useSelector((state) => state.scheda.error)
@@ -70,6 +76,11 @@ const CreaScheda = function () {
       prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id]
     )
   }
+
+  const handleOpenSchedaPubblica = (idx) => {
+    setSelectedSchedaPubblica(idx)
+    setShowModalPubblica(true)
+  }
   const handleCloseModal = () => {
     setShowModal(false)
     setSelectedScheda(null)
@@ -92,6 +103,10 @@ const CreaScheda = function () {
       setSchedaAttiva(esercizi)
     }
   }, [esercizi])
+
+  useEffect(() => {
+    dispatch(fetchSchedePubbliche())
+  }, [dispatch])
 
   return (
     <>
@@ -281,6 +296,79 @@ const CreaScheda = function () {
                               <p>{es.descrizione}</p>
                             </div>
                           ))}
+                      </Modal.Body>
+                    </Modal>
+                  </>
+                )}
+
+                {/* Schede pubbliche */}
+                {schedePubbliche.length > 0 && (
+                  <>
+                    <h2 className="text-center text-warning mt-5">
+                      Schede condivise dagli altri utenti
+                    </h2>
+                    <Row className="g-3 justify-content-center">
+                      {schedePubbliche.map((scheda, idx) => (
+                        <Col
+                          xs={12}
+                          sm={6}
+                          md={4}
+                          lg={3}
+                          xl={2}
+                          key={`pubblica-${idx}`}
+                        >
+                          <Card
+                            className="bg-secondary text-light small-card"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => handleOpenSchedaPubblica(idx)}
+                          >
+                            <Card.Header className="text-center fw-bold">
+                              Scheda pubblica {idx + 1}
+                            </Card.Header>
+                            <Card.Body>
+                              <p className="mb-2">
+                                <strong>Autore:</strong>{" "}
+                                {scheda.nomeUtente || "Utente sconosciuto"}
+                              </p>
+                              <p className="text-truncate">
+                                {Array.isArray(scheda.esercizi)
+                                  ? scheda.esercizi
+                                      .map((es) => es.nomeEsercizio)
+                                      .join(", ")
+                                  : "Scheda vuota"}
+                              </p>
+                            </Card.Body>
+                          </Card>
+                        </Col>
+                      ))}
+                    </Row>
+
+                    <Modal
+                      show={showModalPubblica}
+                      onHide={() => setShowModalPubblica(false)}
+                      centered
+                      size="lg"
+                      className="modale-scheda"
+                    >
+                      <Modal.Header closeButton>
+                        <Modal.Title>Scheda pubblica selezionata</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        {selectedSchedaPubblica !== null &&
+                          schedePubbliche[selectedSchedaPubblica]?.esercizi.map(
+                            (es, i) => (
+                              <div key={i} className="mb-3 border-bottom pb-2">
+                                <h5>{es.nomeEsercizio}</h5>
+                                <small>
+                                  Muscolo:{" "}
+                                  {typeof es.muscolo === "string"
+                                    ? es.muscolo
+                                    : es.muscolo?.nome || "?"}
+                                </small>
+                                <p>{es.descrizione}</p>
+                              </div>
+                            )
+                          )}
                       </Modal.Body>
                     </Modal>
                   </>

@@ -6,6 +6,7 @@ import muscleReducer from "../reducers/muscleReducer"
 import eserciziReduce from "../reducers/eserciziReduce"
 import schedaReduce from "../reducers/schedaReduce"
 import saveSchedaReducer from "../reducers/saveSchedaReducer"
+import schedePubblicheReducer from "../reducers/schedePubblicheReducer"
 
 const tokenFromStorage = localStorage.getItem("token")
 
@@ -26,6 +27,7 @@ const store = configureStore({
     esercizi: eserciziReduce,
     scheda: schedaReduce,
     saveScheda: saveSchedaReducer,
+    schedePubbliche: schedePubblicheReducer,
   },
   preloadedState,
 })

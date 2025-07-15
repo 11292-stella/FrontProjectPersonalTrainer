@@ -24,6 +24,7 @@ export const saveScheda = (esercizi) => {
         body: JSON.stringify({
           nomeScheda: "scheda personalizzata",
           esercizi,
+          visibilePubblicamente: true,
         }),
       })
 
