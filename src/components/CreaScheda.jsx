@@ -9,15 +9,19 @@ import {
   Modal,
 } from "react-bootstrap"
 import "../styles/creascheda.css"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { fetchScheda } from "../redux/action/schedaActions"
 import { useDispatch, useSelector } from "react-redux"
-import { saveScheda } from "../redux/action/saveSchedaAction"
+import {
+  saveScheda,
+  fetchSchedeSalvate,
+} from "../redux/action/saveSchedaAction"
 
 const CreaScheda = function () {
   const dispatch = useDispatch()
   const esercizi = useSelector((state) => state.scheda.esercizi)
   console.log("Esercizi ricevuti:", esercizi)
+  const saving = useSelector((state) => state.saveScheda.saving)
 
   const loading = useSelector((state) => state.scheda.loading)
   const error = useSelector((state) => state.scheda.error)
@@ -59,6 +63,7 @@ const CreaScheda = function () {
 
   const [selectedIds, setSelectedIds] = useState([])
   const savedScheda = useSelector(selectSavedScheda)
+  console.log("Schede salvate:", savedScheda)
 
   const handleCheckboxChange = (id) => {
     setSelectedIds((prev) =>
@@ -72,16 +77,21 @@ const CreaScheda = function () {
 
   const handleSaveScheda = () => {
     dispatch(saveScheda(esercizi))
+    dispatch(fetchSchedeSalvate())
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (selectedIds.length > 0) {
-      dispatch(fetchScheda(selectedIds)).then(() => {
-        setSchedaAttiva(esercizi)
-      })
+      dispatch(fetchScheda(selectedIds)) // niente .then, ci pensa l'useEffect
     }
   }
+
+  useEffect(() => {
+    if (esercizi.length > 0) {
+      setSchedaAttiva(esercizi)
+    }
+  }, [esercizi])
 
   return (
     <>
@@ -135,8 +145,12 @@ const CreaScheda = function () {
                       </Dropdown.Menu>
                     </Dropdown>
 
-                    <Button type="submit" className="button-css">
-                      Genera scheda
+                    <Button
+                      type="submit"
+                      className="button-css"
+                      disabled={saving}
+                    >
+                      {saving ? "Generazione in corso..." : "Genera scheda"}
                     </Button>
                     {esercizi.length > 0 && (
                       <Button
@@ -206,6 +220,12 @@ const CreaScheda = function () {
                     <Row className="g-3 justify-content-center">
                       {savedScheda.map((scheda, idx) => (
                         <Col xs={12} sm={6} md={4} lg={3} xl={2} key={idx}>
+                          <p className="text-light text-end mb-2">
+                            Creata da:{" "}
+                            <strong>
+                              {scheda.nomeUtente || "Utente sconosciuto"}
+                            </strong>
+                          </p>
                           <Card
                             className="scheda-salvata-card text-light small-card"
                             style={{ cursor: "pointer" }}
@@ -219,9 +239,11 @@ const CreaScheda = function () {
                             </Card.Header>
                             <Card.Body>
                               <p className="text-truncate">
-                                {scheda
-                                  .map((es) => es.nomeEsercizio)
-                                  .join(", ")}
+                                {Array.isArray(scheda.esercizi)
+                                  ? scheda.esercizi
+                                      .map((es) => es.nomeEsercizio)
+                                      .join(", ")
+                                  : "Scheda vuota"}
                               </p>
                             </Card.Body>
                           </Card>
@@ -244,7 +266,10 @@ const CreaScheda = function () {
                       </Modal.Header>
                       <Modal.Body>
                         {selectedScheda !== null &&
-                          savedScheda[selectedScheda]?.map((es, i) => (
+                          Array.isArray(
+                            savedScheda[selectedScheda]?.esercizi
+                          ) &&
+                          savedScheda[selectedScheda].esercizi.map((es, i) => (
                             <div key={i} className="mb-3 border-bottom pb-2">
                               <h5>{es.nomeEsercizio}</h5>
                               <small>
@@ -262,27 +287,28 @@ const CreaScheda = function () {
                 )}
 
                 {/* Scheda selezionata in card esterna */}
-                {selectedScheda !== null && savedScheda[selectedScheda] && (
-                  <Card className="mt-5 scheda-p shadow bg-dark text-light">
-                    <Card.Header className="text-center h4">
-                      Scheda selezionata
-                    </Card.Header>
-                    <Card.Body>
-                      {savedScheda[selectedScheda].map((es, i) => (
-                        <div key={i} className="mb-3 border-bottom pb-2">
-                          <h5>{es.nomeEsercizio}</h5>
-                          <small>
-                            Muscolo:{" "}
-                            {typeof es.muscolo === "string"
-                              ? es.muscolo
-                              : es.muscolo?.nome || "?"}
-                          </small>
-                          <p>{es.descrizione}</p>
-                        </div>
-                      ))}
-                    </Card.Body>
-                  </Card>
-                )}
+                {selectedScheda !== null &&
+                  Array.isArray(savedScheda[selectedScheda]?.esercizi) && (
+                    <Card className="mt-5 scheda-p shadow bg-dark text-light">
+                      <Card.Header className="text-center h4">
+                        Scheda selezionata
+                      </Card.Header>
+                      <Card.Body>
+                        {savedScheda[selectedScheda].esercizi.map((es, i) => (
+                          <div key={i} className="mb-3 border-bottom pb-2">
+                            <h5>{es.nomeEsercizio}</h5>
+                            <small>
+                              Muscolo:{" "}
+                              {typeof es.muscolo === "string"
+                                ? es.muscolo
+                                : es.muscolo?.nome || "?"}
+                            </small>
+                            <p>{es.descrizione}</p>
+                          </div>
+                        ))}
+                      </Card.Body>
+                    </Card>
+                  )}
               </Col>
             </Row>
           </Container>

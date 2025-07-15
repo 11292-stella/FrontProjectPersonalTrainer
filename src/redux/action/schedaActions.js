@@ -1,6 +1,7 @@
 export const FETCH_SCHEDA_REQUEST = "FETCH_SCHEDA_REQUEST"
 export const FETCH_SCHEDA_SUCCESS = "FETCH_SCHEDA_SUCCESS"
 export const FETCH_SCHEDA_FAILURE = "FETCH_SCHEDA_FAILURE"
+export const FETCH_SAVED_SCHEDA_SUCCESS = "FETCH_SAVED_SCHEDA_SUCCESS"
 
 export const fetchScheda = (muscoliId) => {
   return async (dispatch, getState) => {

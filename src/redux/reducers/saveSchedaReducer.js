@@ -4,6 +4,8 @@ import {
   SAVE_SCHEDA_FAILURE,
 } from "../action/saveSchedaAction"
 
+import { FETCH_SAVED_SCHEDA_SUCCESS } from "../action/schedaActions"
+
 const initialState = {
   saving: false,
   savedScheda: [],
@@ -16,11 +18,13 @@ const saveSchedaReducer = (state = initialState, action) => {
     case SAVE_SCHEDA_REQUEST:
       return { ...state, saving: true, error: null }
     case SAVE_SCHEDA_SUCCESS:
-      console.log("Payload ricevuto nel reducer:", action.payload)
+      return { ...state, saving: false }
+    case FETCH_SAVED_SCHEDA_SUCCESS:
       return {
         ...state,
+        savedScheda: action.payload,
         saving: false,
-        savedScheda: [...state.savedScheda, action.payload],
+        error: null,
       }
     case SAVE_SCHEDA_FAILURE:
       return { ...state, saving: false, error: action.payload }

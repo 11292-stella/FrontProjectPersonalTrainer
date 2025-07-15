@@ -5,6 +5,7 @@ export const SAVE_SCHEDA_FAILURE = "SAVE_SCHEDA_FAILURE"
 export const FETCH_SCHEDA_REQUEST = "FETCH_SCHEDA_REQUEST"
 export const FETCH_SCHEDA_SUCCESS = "FETCH_SCHEDA_SUCCESS"
 export const FETCH_SCHEDA_FAILURE = "FETCH_SCHEDA_FAILURE"
+export const FETCH_SAVED_SCHEDA_SUCCESS = "FETCH_SAVED_SCHEDA_SUCCESS"
 
 export const saveScheda = (esercizi) => {
   return async (dispatch, getState) => {
@@ -36,6 +37,8 @@ export const saveScheda = (esercizi) => {
         type: SAVE_SCHEDA_SUCCESS,
         payload: data,
       })
+
+      dispatch(fetchSchedeSalvate())
       setTimeout(() => {
         console.log("Controllo Redux dopo 100ms:", getState().saveScheda)
       }, 100)
@@ -64,7 +67,7 @@ export const fetchSchedeSalvate = () => async (dispatch, getState) => {
 
     if (res.status === 204) {
       console.warn("Nessuna scheda salvata al momento")
-      dispatch({ type: FETCH_SCHEDA_SUCCESS, payload: [] })
+      dispatch({ type: FETCH_SAVED_SCHEDA_SUCCESS, payload: [] })
       return
     }
 
@@ -83,7 +86,7 @@ export const fetchSchedeSalvate = () => async (dispatch, getState) => {
     }
 
     const data = await res.json()
-    dispatch({ type: FETCH_SCHEDA_SUCCESS, payload: data })
+    dispatch({ type: FETCH_SAVED_SCHEDA_SUCCESS, payload: data })
   } catch (error) {
     console.warn("Fallita la fetch delle schede:", error.message)
 
