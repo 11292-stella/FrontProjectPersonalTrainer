@@ -18,7 +18,12 @@ const saveSchedaReducer = (state = initialState, action) => {
     case SAVE_SCHEDA_REQUEST:
       return { ...state, saving: true, error: null }
     case SAVE_SCHEDA_SUCCESS:
-      return { ...state, saving: false }
+      return {
+        ...state,
+        saving: false,
+        savedScheda: [...state.savedScheda, action.payload],
+        error: null,
+      }
     case FETCH_SAVED_SCHEDA_SUCCESS:
       return {
         ...state,

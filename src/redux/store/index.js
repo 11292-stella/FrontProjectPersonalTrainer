@@ -7,6 +7,7 @@ import eserciziReduce from "../reducers/eserciziReduce"
 import schedaReduce from "../reducers/schedaReduce"
 import saveSchedaReducer from "../reducers/saveSchedaReducer"
 import schedePubblicheReducer from "../reducers/schedePubblicheReducer"
+import deleteSchedaReducer from "../reducers/deleteSchedaReducer"
 
 const tokenFromStorage = localStorage.getItem("token")
 
@@ -28,6 +29,7 @@ const store = configureStore({
     scheda: schedaReduce,
     saveScheda: saveSchedaReducer,
     schedePubbliche: schedePubblicheReducer,
+    deleteScheda: deleteSchedaReducer,
   },
   preloadedState,
 })

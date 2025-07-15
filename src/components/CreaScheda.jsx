@@ -17,6 +17,7 @@ import {
   fetchSchedeSalvate,
 } from "../redux/action/saveSchedaAction"
 import { fetchSchedePubbliche } from "../redux/action/schedaActions"
+import { deleteScheda } from "../redux/action/deleteSchedaActions"
 
 const CreaScheda = function () {
   const dispatch = useDispatch()
@@ -65,6 +66,12 @@ const CreaScheda = function () {
   const handleSelectScheda = (scheda) => {
     setSelectedScheda(scheda)
     setShowModal(true)
+  }
+
+  const handleDeleteScheda = (id) => {
+    if (window.confirm("Vuoi davvero eliminare questa scheda?")) {
+      dispatch(deleteScheda(id))
+    }
   }
 
   const [selectedIds, setSelectedIds] = useState([])
@@ -233,37 +240,54 @@ const CreaScheda = function () {
                       Le tue schede salvate
                     </h2>
                     <Row className="g-3 justify-content-center">
-                      {savedScheda.map((scheda, idx) => (
-                        <Col xs={12} sm={6} md={4} lg={3} xl={2} key={idx}>
-                          <p className="text-light text-end mb-2">
-                            Creata da:{" "}
-                            <strong>
-                              {scheda.nomeUtente || "Utente sconosciuto"}
-                            </strong>
-                          </p>
-                          <Card
-                            className="scheda-salvata-card text-light small-card"
-                            style={{ cursor: "pointer" }}
-                            onClick={() => {
-                              setSelectedScheda(idx)
-                              setShowModal(true)
-                            }}
-                          >
-                            <Card.Header className="text-center fw-bold">
-                              Scheda {idx + 1}
-                            </Card.Header>
-                            <Card.Body>
-                              <p className="text-truncate">
-                                {Array.isArray(scheda.esercizi)
-                                  ? scheda.esercizi
-                                      .map((es) => es.nomeEsercizio)
-                                      .join(", ")
-                                  : "Scheda vuota"}
-                              </p>
-                            </Card.Body>
-                          </Card>
-                        </Col>
-                      ))}
+                      {savedScheda.map((scheda, idx) => {
+                        console.log("Scheda ricevuta nel frontend:", scheda) // 👈 ECCO IL LOG
+
+                        return (
+                          <Col xs={12} sm={6} md={4} lg={3} xl={2} key={idx}>
+                            <p className="text-light text-end mb-2">
+                              Creata da:{" "}
+                              <strong>
+                                {scheda.nomeUtente || "Utente sconosciuto"}
+                              </strong>
+                            </p>
+
+                            <Card
+                              className="scheda-salvata-card text-light small-card"
+                              style={{ cursor: "pointer" }}
+                              onClick={() => {
+                                setSelectedScheda(idx)
+                                setShowModal(true)
+                              }}
+                            >
+                              <Card.Header className="text-center fw-bold">
+                                Scheda {idx + 1}
+                              </Card.Header>
+                              <Card.Body>
+                                <p className="text-truncate">
+                                  {Array.isArray(scheda.esercizi)
+                                    ? scheda.esercizi
+                                        .map((es) => es.nomeEsercizio)
+                                        .join(", ")
+                                    : "Scheda vuota"}
+                                </p>
+                              </Card.Body>
+                            </Card>
+
+                            {/* ✅ Bottone Elimina */}
+                            {scheda.id !== undefined && (
+                              <Button
+                                variant="danger"
+                                size="sm"
+                                className="mt-2 w-100"
+                                onClick={() => handleDeleteScheda(scheda.id)}
+                              >
+                                🗑️ Elimina
+                              </Button>
+                            )}
+                          </Col>
+                        )
+                      })}
                     </Row>
 
                     <Modal
