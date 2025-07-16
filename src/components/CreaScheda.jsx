@@ -117,314 +117,293 @@ const CreaScheda = function () {
 
   return (
     <>
-      <div className="min-vh-100 d-flex justify-content-center  creascheda-background">
-        <main className="flex-grow-1">
-          <Container>
-            <Row>
-              <h1 className="text-center h1-reg mt-5">
+      <div className="d-flex flex-column min-vh-100 creascheda-background">
+        <Container className="flex-grow-1 py-5">
+          <Row className="justify-content-center">
+            <Col xs={12} md={10} lg={8} className="text-center">
+              <h1 className="h1-reg text-white">
                 Il tuo allenamento, a modo tuo!
               </h1>
-              <p className=" mt-2 primop text-center">
+              <p className="mt-3 primop">
                 Siamo pronti? Ora inizia il vero divertimento! Scatena la tua
                 creatività e costruisci le tue schede personalizzate: scegli i
                 muscoli che vuoi allenare e dai vita al tuo percorso unico. La
                 palestra è tua!
               </p>
-              <Col
-                md={12}
-                className=" d-flex justify-content-center mt-3 text-light "
-              >
-                <Form onSubmit={handleSubmit}>
-                  <div className="d-flex align-items-center gap-2 mb-">
-                    <Dropdown>
-                      <Dropdown.Toggle
-                        className="button-css"
-                        id="dropdown-muscoli"
-                      >
-                        Seleziona muscoli
-                      </Dropdown.Toggle>
+            </Col>
+          </Row>
 
-                      <Dropdown.Menu
-                        style={{
-                          maxHeight: "300px",
-                          overflowY: "auto",
-                          minWidth: "250px",
-                          backgroundColor: "rgb(68, 3, 8)",
-                          color: "white",
-                          fontFamily: "monospace",
-                        }}
-                      >
-                        {muscoli.map((muscolo) => (
-                          <Form.Check
-                            key={muscolo.id}
-                            type="checkbox"
-                            label={muscolo.nome}
-                            checked={selectedIds.includes(muscolo.id)}
-                            onChange={() => handleCheckboxChange(muscolo.id)}
-                            className="ps-5  "
-                          />
-                        ))}
-                      </Dropdown.Menu>
-                    </Dropdown>
-
-                    <Button
-                      type="submit"
+          {/* FORM */}
+          <Row className="justify-content-center mb-4">
+            <Col xs={12} sm={10} md={8} lg={6}>
+              <Form onSubmit={handleSubmit}>
+                <div className="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                  <Dropdown>
+                    <Dropdown.Toggle
                       className="button-css"
-                      disabled={saving}
+                      id="dropdown-muscoli"
                     >
-                      {saving ? "Generazione in corso..." : "Genera scheda"}
-                    </Button>
-                    {esercizi.length > 0 && (
-                      <Button
-                        type="button"
-                        className="button-css"
-                        onClick={() => handleSaveScheda()}
-                      >
-                        salva scheda
-                      </Button>
-                    )}
-                  </div>
-                </Form>
-              </Col>
-
-              {/* Visualizzazione scheda */}
-              <Col md={12} className="mt-5">
-                {/* Scheda appena generata */}
-                {schedaAttiva && schedaAttiva.length > 0 && (
-                  <>
-                    <h2 className="text-center text-light mb-4">
-                      La tua scheda personalizzata
-                    </h2>
-                    <Row className="g-4 justify-content-center mb-2">
-                      <Col xs={12} md={10} lg={12}>
-                        <Card className="mt-4 mb-3 scheda-p shadow-lg bg-dark text-light">
-                          <Card.Header className="h4 text-center">
-                            Scheda Personalizzata
-                          </Card.Header>
-                          <Card.Body>
-                            {schedaAttiva.map((esercizio, index) =>
-                              esercizio.nomeEsercizio &&
-                              esercizio.descrizione &&
-                              esercizio.muscolo ? (
-                                <div
-                                  key={index}
-                                  className="mb-4 border-bottom pb-2"
-                                >
-                                  <h5 className="text-center">
-                                    {esercizio.nomeEsercizio}
-                                  </h5>
-                                  <h6 className="text-light">
-                                    Muscolo:{" "}
-                                    {typeof esercizio.muscolo === "string"
-                                      ? esercizio.muscolo
-                                      : esercizio.muscolo?.nome || "?"}
-                                  </h6>
-                                  <p>
-                                    <strong>Esercizio:</strong>{" "}
-                                    {esercizio.descrizione}
-                                  </p>
-                                </div>
-                              ) : null
-                            )}
-                          </Card.Body>
-                        </Card>
-                      </Col>
-                    </Row>
-                  </>
-                )}
-
-                {/* Schede salvate */}
-                {savedScheda.length > 0 && (
-                  <>
-                    <h2 className="text-center text-light mt-5">
-                      Le tue schede salvate
-                    </h2>
-                    <Row className="g-3 justify-content-center">
-                      {savedScheda.map((scheda, idx) => {
-                        console.log("Scheda ricevuta nel frontend:", scheda) // 👈 ECCO IL LOG
-
-                        return (
-                          <Col xs={12} sm={6} md={4} lg={3} xl={2} key={idx}>
-                            <p className="text-light text-end mb-2">
-                              Creata da:{" "}
-                              <strong>
-                                {scheda.nomeUtente || "Utente sconosciuto"}
-                              </strong>
-                            </p>
-
-                            <Card
-                              className="scheda-salvata-card text-light small-card"
-                              style={{ cursor: "pointer" }}
-                              onClick={() => {
-                                setSelectedScheda(idx)
-                                setShowModal(true)
-                              }}
-                            >
-                              <Card.Header className="text-center fw-bold">
-                                Scheda {idx + 1}
-                              </Card.Header>
-                              <Card.Body>
-                                <p className="text-truncate">
-                                  {Array.isArray(scheda.esercizi)
-                                    ? scheda.esercizi
-                                        .map((es) => es.nomeEsercizio)
-                                        .join(", ")
-                                    : "Scheda vuota"}
-                                </p>
-                              </Card.Body>
-                            </Card>
-
-                            {/* ✅ Bottone Elimina */}
-                            {scheda.id !== undefined && (
-                              <Button
-                                variant="danger"
-                                size="sm"
-                                className="mt-2 w-100"
-                                onClick={() => handleDeleteScheda(scheda.id)}
-                              >
-                                🗑️ Elimina
-                              </Button>
-                            )}
-                          </Col>
-                        )
-                      })}
-                    </Row>
-
-                    <Modal
-                      show={showModal}
-                      onHide={() => {
-                        setShowModal(false)
-                        setSelectedScheda(null)
+                      Seleziona muscoli ({selectedIds.length})
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu
+                      style={{
+                        maxHeight: "300px",
+                        overflowY: "auto",
+                        minWidth: "250px",
+                        backgroundColor: "rgb(68, 3,8)",
+                        color: "white",
+                        fontFamily: "monospace",
                       }}
-                      centered
-                      size="lg"
-                      className="modale-scheda"
                     >
-                      <Modal.Header closeButton>
-                        <Modal.Title>Scheda selezionata</Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                        {selectedScheda !== null &&
-                          Array.isArray(
-                            savedScheda[selectedScheda]?.esercizi
-                          ) &&
-                          savedScheda[selectedScheda].esercizi.map((es, i) => (
-                            <div key={i} className="mb-3 border-bottom pb-2">
-                              <h5>{es.nomeEsercizio}</h5>
-                              <small>
-                                Muscolo:{" "}
-                                {typeof es.muscolo === "string"
-                                  ? es.muscolo
-                                  : es.muscolo?.nome || "?"}
-                              </small>
-                              <p>{es.descrizione}</p>
-                            </div>
-                          ))}
-                      </Modal.Body>
-                    </Modal>
-                  </>
-                )}
-
-                {/* Schede pubbliche */}
-                {schedePubbliche.length > 0 && (
-                  <>
-                    <h2 className="text-center text-warning mt-5">
-                      Schede condivise dagli altri utenti
-                    </h2>
-                    <Row className="g-3 justify-content-center">
-                      {schedePubbliche.map((scheda, idx) => (
-                        <Col
-                          xs={12}
-                          sm={6}
-                          md={4}
-                          lg={3}
-                          xl={2}
-                          key={`pubblica-${idx}`}
-                        >
-                          <Card
-                            className="bg-secondary text-light small-card"
-                            style={{ cursor: "pointer" }}
-                            onClick={() => handleOpenSchedaPubblica(idx)}
-                          >
-                            <Card.Header className="text-center fw-bold">
-                              Scheda pubblica {idx + 1}
-                            </Card.Header>
-                            <Card.Body>
-                              <p className="mb-2">
-                                <strong>Autore:</strong>{" "}
-                                {scheda.nomeUtente || "Utente sconosciuto"}
-                              </p>
-                              <p className="text-truncate">
-                                {Array.isArray(scheda.esercizi)
-                                  ? scheda.esercizi
-                                      .map((es) => es.nomeEsercizio)
-                                      .join(", ")
-                                  : "Scheda vuota"}
-                              </p>
-                            </Card.Body>
-                          </Card>
-                        </Col>
+                      {muscoli.map((muscolo) => (
+                        <Form.Check
+                          key={muscolo.id}
+                          type="checkbox"
+                          label={muscolo.nome}
+                          checked={selectedIds.includes(muscolo.id)}
+                          onChange={() => handleCheckboxChange(muscolo.id)}
+                          className="ps-5"
+                        />
                       ))}
-                    </Row>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  <Button
+                    type="submit"
+                    className="button-css"
+                    disabled={saving}
+                    style={{ minWidth: "150px" }}
+                  >
+                    {saving ? "" : "Genera scheda"}
+                  </Button>
+                </div>
 
-                    <Modal
-                      show={showModalPubblica}
-                      onHide={() => setShowModalPubblica(false)}
-                      centered
-                      size="lg"
-                      className="modale-scheda"
+                {esercizi.length > 0 && (
+                  <div className="d-flex justify-content-center mt-3">
+                    <Button
+                      type="button"
+                      className="button-css"
+                      style={{ minWidth: "180px" }}
+                      onClick={handleSaveScheda}
                     >
-                      <Modal.Header closeButton>
-                        <Modal.Title>Scheda pubblica selezionata</Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                        {selectedSchedaPubblica !== null &&
-                          schedePubbliche[selectedSchedaPubblica]?.esercizi.map(
-                            (es, i) => (
-                              <div key={i} className="mb-3 border-bottom pb-2">
-                                <h5>{es.nomeEsercizio}</h5>
-                                <small>
-                                  Muscolo:{" "}
-                                  {typeof es.muscolo === "string"
-                                    ? es.muscolo
-                                    : es.muscolo?.nome || "?"}
-                                </small>
-                                <p>{es.descrizione}</p>
-                              </div>
-                            )
-                          )}
-                      </Modal.Body>
-                    </Modal>
-                  </>
+                      Salva scheda
+                    </Button>
+                  </div>
                 )}
-
-                {/* Scheda selezionata in card esterna */}
-                {selectedScheda !== null &&
-                  Array.isArray(savedScheda[selectedScheda]?.esercizi) && (
-                    <Card className="mt-5 scheda-p shadow bg-dark text-light">
-                      <Card.Header className="text-center h4">
-                        Scheda selezionata
+              </Form>
+            </Col>
+          </Row>
+          {/* FINE FORM  */}
+          {/**Genera scheda */}
+          <Col xs={12} md={12} className="mt-5">
+            {schedaAttiva && schedaAttiva.length > 0 && (
+              <>
+                <h2 className="text-center text-light mb-4">
+                  La tua scheda personalizzata
+                </h2>
+                <Row className="g-4 justify-content-center mb-2">
+                  <Col xs={12} sm={10} md={8} lg={6} xl={5}>
+                    <Card className="scheda-p text-light shadow">
+                      <Card.Header className="h4 text-center">
+                        Scheda Personalizzata
                       </Card.Header>
                       <Card.Body>
-                        {savedScheda[selectedScheda].esercizi.map((es, i) => (
-                          <div key={i} className="mb-3 border-bottom pb-2">
-                            <h5>{es.nomeEsercizio}</h5>
-                            <small>
-                              Muscolo:{" "}
-                              {typeof es.muscolo === "string"
-                                ? es.muscolo
-                                : es.muscolo?.nome || "?"}
-                            </small>
-                            <p>{es.descrizione}</p>
-                          </div>
-                        ))}
+                        {schedaAttiva.map((esercizio, index) =>
+                          esercizio.nomeEsercizio &&
+                          esercizio.descrizione &&
+                          esercizio.muscolo ? (
+                            <div
+                              key={index}
+                              className="mb-4 border-bottom pb-2"
+                            >
+                              <h5 className="text-center">
+                                {esercizio.nomeEsercizio}
+                              </h5>
+                              <h6 className="text-light">
+                                Muscolo:{" "}
+                                {typeof esercizio.muscolo === "string"
+                                  ? esercizio.muscolo
+                                  : esercizio.muscolo?.nome || "?"}
+                              </h6>
+                              <p>
+                                <strong>Esercizio:</strong>{" "}
+                                {esercizio.descrizione}
+                              </p>
+                            </div>
+                          ) : null
+                        )}
                       </Card.Body>
                     </Card>
-                  )}
-              </Col>
-            </Row>
-          </Container>
-        </main>
+                  </Col>
+                </Row>
+              </>
+            )}
+          </Col>
+          {/**fine genera scheda  */}
+
+          {/**schede salvate */}
+          {/* Schede salvate */}
+          {savedScheda.length > 0 && (
+            <>
+              <h2 className="text-center text-light mt-5">
+                Le tue schede salvate
+              </h2>
+              <Row className="g-3 justify-content-center">
+                {savedScheda.map((scheda, idx) => {
+                  console.log("Scheda ricevuta nel frontend:", scheda)
+                  return (
+                    <Col xs={12} sm={6} md={4} lg={3} xl={2} key={idx}>
+                      <p className="text-light text-end mb-2">
+                        Creata da:{" "}
+                        <strong>
+                          {scheda.nomeUtente || "Utente sconosciuto"}
+                        </strong>
+                      </p>
+                      <Card
+                        className="scheda-salvata-card text-light small-card"
+                        style={{
+                          cursor: "pointer",
+                          width: "100%",
+                        }}
+                        onClick={() => {
+                          setSelectedScheda(idx)
+                          setShowModal(true)
+                        }}
+                      >
+                        <Card.Header className="text-center fw-bold">
+                          Scheda {idx + 1}
+                        </Card.Header>
+                        <Card.Body>
+                          <p className="text-truncate">
+                            {Array.isArray(scheda.esercizi)
+                              ? scheda.esercizi
+                                  .map((es) => es.nomeEsercizio)
+                                  .join(", ")
+                              : "Scheda vuota"}
+                          </p>
+                        </Card.Body>
+                      </Card>
+                      {scheda.id !== undefined && (
+                        <Button
+                          variant="danger"
+                          size="sm"
+                          className="mt-2 w-100"
+                          onClick={() => handleDeleteScheda(scheda.id)}
+                        >
+                          Elimina
+                        </Button>
+                      )}
+                    </Col>
+                  )
+                })}
+              </Row>
+
+              <Modal
+                show={showModal}
+                onHide={() => {
+                  setShowModal(false)
+                  setSelectedScheda(null)
+                }}
+                centered
+                size="lg"
+                className="modale-scheda"
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>Scheda selezionata</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  {selectedScheda !== null &&
+                    Array.isArray(savedScheda[selectedScheda]?.esercizi) &&
+                    savedScheda[selectedScheda].esercizi.map((es, i) => (
+                      <div key={i} className="mb-3 border-bottom pb-2">
+                        <h5>{es.nomeEsercizio}</h5>
+                        <small>
+                          Muscolo:{" "}
+                          {typeof es.muscolo === "string"
+                            ? es.muscolo
+                            : es.muscolo?.nome || "?"}
+                        </small>
+                        <p>{es.descrizione}</p>
+                      </div>
+                    ))}
+                </Modal.Body>
+              </Modal>
+            </>
+          )}
+          {/**fine schede salvate */}
+          {/* Schede pubbliche */}
+          {schedePubbliche.length > 0 && (
+            <>
+              <h2 className="text-center text-warning mt-5">
+                Schede condivise dagli altri utenti
+              </h2>
+              <Row className="g-3 justify-content-center">
+                {schedePubbliche.map((scheda, idx) => (
+                  <Col
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    lg={3}
+                    xl={2}
+                    key={`pubblica-${idx}`}
+                  >
+                    <Card
+                      className="bg-secondary text-light small-card"
+                      style={{ cursor: "pointer", width: "100%" }}
+                      onClick={() => handleOpenSchedaPubblica(idx)}
+                    >
+                      <Card.Header className="text-center fw-bold">
+                        Scheda pubblica {idx + 1}
+                      </Card.Header>
+                      <Card.Body>
+                        <p className="mb-2">
+                          <strong>Autore:</strong>{" "}
+                          {scheda.nomeUtente || "Utente sconosciuto"}
+                        </p>
+                        <p className="text-truncate">
+                          {Array.isArray(scheda.esercizi)
+                            ? scheda.esercizi
+                                .map((es) => es.nomeEsercizio)
+                                .join(", ")
+                            : "Scheda vuota"}
+                        </p>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+
+              <Modal
+                show={showModalPubblica}
+                onHide={() => setShowModalPubblica(false)}
+                centered
+                size="lg"
+                className="modale-scheda"
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>Scheda pubblica selezionata</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  {selectedSchedaPubblica !== null &&
+                    schedePubbliche[selectedSchedaPubblica]?.esercizi.map(
+                      (es, i) => (
+                        <div key={i} className="mb-3 border-bottom pb-2">
+                          <h5>{es.nomeEsercizio}</h5>
+                          <small>
+                            Muscolo:{" "}
+                            {typeof es.muscolo === "string"
+                              ? es.muscolo
+                              : es.muscolo?.nome || "?"}
+                          </small>
+                          <p>{es.descrizione}</p>
+                        </div>
+                      )
+                    )}
+                </Modal.Body>
+              </Modal>
+            </>
+          )}
+          {/* fine schede pubbliche */}
+        </Container>
       </div>
     </>
   )
