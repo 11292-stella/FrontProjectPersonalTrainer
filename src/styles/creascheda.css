@@ -1,47 +1,42 @@
 .creascheda-background {
-  background-image: url("/public/primaImg.png");
+  background-image: url("/public/altrosfondo.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(63, 17, 17, 0.6);
   background-blend-mode: darken;
 }
 
 .scheda-p {
-  background-color: #000 !important;
-  color: white !important;
-
-  background: linear-gradient(to bottom, #1a0000, #000000) !important;
-
-  box-shadow: 0 4px 10px rgba(145, 14, 30, 0.4),
-    inset 0 2px 6px rgba(145, 14, 30, 0.2) !important;
-
-  border-bottom: 1px solid rgba(255, 0, 0, 0.3) !important;
-
-  padding-top: 12px !important;
-  padding-bottom: 12px !important;
+  background-color: rgb(160, 1, 1);
+  -webkit-box-shadow: 1px 2px 9px 1px #000000;
+  box-shadow: 1px 2px 9px 1px #000000;
 }
 
-.scheda-salvata-card {
-  background-color: #000 !important;
-  color: white !important;
-
-  background: linear-gradient(to bottom, #1a0000, #000000) !important;
-
-  box-shadow: 0 4px 10px rgba(145, 14, 30, 0.4),
-    inset 0 2px 6px rgba(145, 14, 30, 0.2) !important;
-
-  border-bottom: 1px solid rgba(255, 0, 0, 0.3) !important;
-
-  padding-top: 12px !important;
-  padding-bottom: 12px !important;
+.scheda-b {
+  background-color: rgb(31, 41, 55);
+  -webkit-box-shadow: 1px 2px 9px 1px #000000;
+  box-shadow: 1px 2px 9px 1px #000000;
 }
 
-.modale-scheda .btn-close {
+.modal-scheda .modal-header,
+.modal-scheda .modal-footer {
+  background-color: #ca1818;
+  color: white;
+  border-bottom: 1px solid white !important;
+}
+
+.modal-scheda .modal-body {
+  background-color: rgb(31, 41, 55) !important;
+  color: white !important;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.modal-scheda .btn-close {
   filter: brightness(0) invert(1);
   opacity: 0.8;
 }
 
-.modale-scheda .btn-close:hover {
+.modal-scheda .btn-close:hover {
   opacity: 1;
 }

@@ -18,6 +18,7 @@ import {
 } from "../redux/action/saveSchedaAction"
 import { fetchSchedePubbliche } from "../redux/action/schedaActions"
 import { deleteScheda } from "../redux/action/deleteSchedaActions"
+import { FaTrash } from "react-icons/fa"
 
 const CreaScheda = function () {
   const dispatch = useDispatch()
@@ -79,6 +80,7 @@ const CreaScheda = function () {
   console.log("Schede salvate:", savedScheda)
 
   const handleCheckboxChange = (id) => {
+    console.log("Checkbox cliccata, ID:", id)
     setSelectedIds((prev) =>
       prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id]
     )
@@ -101,7 +103,7 @@ const CreaScheda = function () {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (selectedIds.length > 0) {
-      dispatch(fetchScheda(selectedIds)) // niente .then, ci pensa l'useEffect
+      dispatch(fetchScheda(selectedIds))
     }
   }
 
@@ -121,10 +123,10 @@ const CreaScheda = function () {
         <Container className="flex-grow-1 py-5">
           <Row className="justify-content-center">
             <Col xs={12} md={10} lg={8} className="text-center">
-              <h1 className="h1-reg text-white">
+              <h1 className="h1-reg  text-warning">
                 Il tuo allenamento, a modo tuo!
               </h1>
-              <p className="mt-3 primop">
+              <p className="mt-3 primop  text-warning">
                 Siamo pronti? Ora inizia il vero divertimento! Scatena la tua
                 creatività e costruisci le tue schede personalizzate: scegli i
                 muscoli che vuoi allenare e dai vita al tuo percorso unico. La
@@ -137,13 +139,10 @@ const CreaScheda = function () {
           <Row className="justify-content-center mb-4">
             <Col xs={12} sm={10} md={8} lg={6}>
               <Form onSubmit={handleSubmit}>
-                <div className="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                <div className="d-flex flex-wrap align-items-center gap-2 mb-2 justify-content-center">
                   <Dropdown>
-                    <Dropdown.Toggle
-                      className="button-css"
-                      id="dropdown-muscoli"
-                    >
-                      Seleziona muscoli ({selectedIds.length})
+                    <Dropdown.Toggle className="scheda-p" id="dropdown-muscoli">
+                      Seleziona muscoli
                     </Dropdown.Toggle>
                     <Dropdown.Menu
                       style={{
@@ -155,40 +154,42 @@ const CreaScheda = function () {
                         fontFamily: "monospace",
                       }}
                     >
-                      {muscoli.map((muscolo) => (
-                        <Form.Check
-                          key={muscolo.id}
-                          type="checkbox"
-                          label={muscolo.nome}
-                          checked={selectedIds.includes(muscolo.id)}
-                          onChange={() => handleCheckboxChange(muscolo.id)}
-                          className="ps-5"
-                        />
-                      ))}
+                      {muscoli.map((muscolo) => {
+                        console.log("Rendering muscolo:", muscolo)
+                        return (
+                          <Form.Check
+                            key={muscolo.id}
+                            type="checkbox"
+                            label={muscolo.nome}
+                            checked={selectedIds.includes(muscolo.id)}
+                            onChange={() => handleCheckboxChange(muscolo.id)}
+                            className="ps-5"
+                          />
+                        )
+                      })}
                     </Dropdown.Menu>
                   </Dropdown>
+
                   <Button
                     type="submit"
-                    className="button-css"
+                    className="scheda-p"
                     disabled={saving}
                     style={{ minWidth: "150px" }}
                   >
                     {saving ? "" : "Genera scheda"}
                   </Button>
-                </div>
 
-                {esercizi.length > 0 && (
-                  <div className="d-flex justify-content-center mt-3">
+                  {esercizi.length > 0 && (
                     <Button
                       type="button"
-                      className="button-css"
+                      className=" scheda-p  mt-2 mt-lg-0"
                       style={{ minWidth: "180px" }}
                       onClick={handleSaveScheda}
                     >
                       Salva scheda
                     </Button>
-                  </div>
-                )}
+                  )}
+                </div>
               </Form>
             </Col>
           </Row>
@@ -197,16 +198,16 @@ const CreaScheda = function () {
           <Col xs={12} md={12} className="mt-5">
             {schedaAttiva && schedaAttiva.length > 0 && (
               <>
-                <h2 className="text-center text-light mb-4">
+                <h2 className="text-center  text-warning mb-4">
                   La tua scheda personalizzata
                 </h2>
                 <Row className="g-4 justify-content-center mb-2">
                   <Col xs={12} sm={10} md={8} lg={6} xl={5}>
-                    <Card className="scheda-p text-light shadow">
-                      <Card.Header className="h4 text-center">
+                    <Card className="text-light shadow ">
+                      <Card.Header className="h4 scheda-p  text-center">
                         Scheda Personalizzata
                       </Card.Header>
-                      <Card.Body>
+                      <Card.Body className="scheda-b">
                         {schedaAttiva.map((esercizio, index) =>
                           esercizio.nomeEsercizio &&
                           esercizio.descrizione &&
@@ -240,11 +241,10 @@ const CreaScheda = function () {
           </Col>
           {/**fine genera scheda  */}
 
-          {/**schede salvate */}
           {/* Schede salvate */}
           {savedScheda.length > 0 && (
             <>
-              <h2 className="text-center text-light mt-5">
+              <h2 className="text-center   text-warning mt-5">
                 Le tue schede salvate
               </h2>
               <Row className="g-3 justify-content-center">
@@ -252,14 +252,8 @@ const CreaScheda = function () {
                   console.log("Scheda ricevuta nel frontend:", scheda)
                   return (
                     <Col xs={12} sm={6} md={4} lg={3} xl={2} key={idx}>
-                      <p className="text-light text-end mb-2">
-                        Creata da:{" "}
-                        <strong>
-                          {scheda.nomeUtente || "Utente sconosciuto"}
-                        </strong>
-                      </p>
                       <Card
-                        className="scheda-salvata-card text-light small-card"
+                        className=" text-light small-card"
                         style={{
                           cursor: "pointer",
                           width: "100%",
@@ -269,10 +263,29 @@ const CreaScheda = function () {
                           setShowModal(true)
                         }}
                       >
-                        <Card.Header className="text-center fw-bold">
-                          Scheda {idx + 1}
+                        <Card.Header className="scheda-p d-flex justify-content-between align-items-center">
+                          <span>Scheda {idx + 1}</span>
+
+                          {scheda.id !== undefined && (
+                            <Button
+                              variant="link"
+                              className="text-danger p-0"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                handleDeleteScheda(scheda.id)
+                              }}
+                            >
+                              <FaTrash size={18} />
+                            </Button>
+                          )}
                         </Card.Header>
-                        <Card.Body>
+                        <Card.Body className="scheda-b">
+                          <p className="text-light text-center mb-2">
+                            Creata da:{" "}
+                            <strong>
+                              {scheda.nomeUtente || "Utente sconosciuto"}
+                            </strong>
+                          </p>
                           <p className="text-truncate">
                             {Array.isArray(scheda.esercizi)
                               ? scheda.esercizi
@@ -282,16 +295,6 @@ const CreaScheda = function () {
                           </p>
                         </Card.Body>
                       </Card>
-                      {scheda.id !== undefined && (
-                        <Button
-                          variant="danger"
-                          size="sm"
-                          className="mt-2 w-100"
-                          onClick={() => handleDeleteScheda(scheda.id)}
-                        >
-                          Elimina
-                        </Button>
-                      )}
                     </Col>
                   )
                 })}
@@ -305,12 +308,13 @@ const CreaScheda = function () {
                 }}
                 centered
                 size="lg"
-                className="modale-scheda"
+                className="modal-scheda"
               >
-                <Modal.Header closeButton>
+                <Modal.Header closeButton className=" text-white">
                   <Modal.Title>Scheda selezionata</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+
+                <Modal.Body className="bg-dark text-white">
                   {selectedScheda !== null &&
                     Array.isArray(savedScheda[selectedScheda]?.esercizi) &&
                     savedScheda[selectedScheda].esercizi.map((es, i) => (
@@ -351,10 +355,10 @@ const CreaScheda = function () {
                       style={{ cursor: "pointer", width: "100%" }}
                       onClick={() => handleOpenSchedaPubblica(idx)}
                     >
-                      <Card.Header className="text-center fw-bold">
+                      <Card.Header className="text-center scheda-p fw-bold">
                         Scheda pubblica {idx + 1}
                       </Card.Header>
-                      <Card.Body>
+                      <Card.Body className="scheda-b">
                         <p className="mb-2">
                           <strong>Autore:</strong>{" "}
                           {scheda.nomeUtente || "Utente sconosciuto"}
@@ -377,7 +381,7 @@ const CreaScheda = function () {
                 onHide={() => setShowModalPubblica(false)}
                 centered
                 size="lg"
-                className="modale-scheda"
+                className="modal-scheda"
               >
                 <Modal.Header closeButton>
                   <Modal.Title>Scheda pubblica selezionata</Modal.Title>

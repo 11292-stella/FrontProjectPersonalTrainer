@@ -170,7 +170,11 @@ const HomeLogin = function () {
                   </Button>
                 </div>
 
-                <Modal show={isOpen} onHide={() => dispatch(closeModal())}>
+                <Modal
+                  show={isOpen}
+                  onHide={() => dispatch(closeModal())}
+                  className="modal-muscolo-custom"
+                >
                   <Modal.Header closeButton>
                     <Modal.Title>
                       {selectedMuscleData?.nome || selectedMuscle}
