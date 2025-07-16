@@ -13,6 +13,7 @@ import { NavLink } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { logoutUser } from "../redux/action/authActions"
+import { FaSignOutAlt } from "react-icons/fa"
 
 const NavBar = function () {
   const dispatch = useDispatch()
@@ -20,7 +21,7 @@ const NavBar = function () {
 
   const handleLogout = () => {
     dispatch(logoutUser())
-    navigate("/login")
+    navigate("/home")
   }
 
   return (
@@ -72,13 +73,14 @@ const NavBar = function () {
                   Separated link
                 </NavDropdown.Item>
               </NavDropdown>
-              <Button
-                variant="outline-light"
+              <Nav.Link
                 onClick={handleLogout}
-                className="ms-3"
+                style={{ cursor: "pointer" }}
+                title="Esci"
+                className="ms-3 d-flex align-items-center"
               >
-                Esci
-              </Button>
+                <FaSignOutAlt size={20} color="white" />
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
