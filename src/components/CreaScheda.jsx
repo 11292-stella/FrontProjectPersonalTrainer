@@ -19,6 +19,7 @@ import {
 import { fetchSchedePubbliche } from "../redux/action/schedaActions"
 import { deleteScheda } from "../redux/action/deleteSchedaActions"
 import { FaTrash } from "react-icons/fa"
+import { postFeedback, fetchFeedbacks } from "../redux/action/feedBackActions"
 
 const CreaScheda = function () {
   const dispatch = useDispatch()
@@ -30,7 +31,8 @@ const CreaScheda = function () {
   )
   const [selectedSchedaPubblica, setSelectedSchedaPubblica] = useState(null)
   const [showModalPubblica, setShowModalPubblica] = useState(false)
-
+  const [commento, setCommento] = useState("")
+  const [voto, setVoto] = useState(5)
   const loading = useSelector((state) => state.scheda.loading)
   const error = useSelector((state) => state.scheda.error)
   const selectSavedScheda = (state) => state.saveScheda?.savedScheda || []
@@ -78,6 +80,7 @@ const CreaScheda = function () {
   const [selectedIds, setSelectedIds] = useState([])
   const savedScheda = useSelector(selectSavedScheda)
   console.log("Schede salvate:", savedScheda)
+  const feedbacks = useSelector((state) => state.feedback.feedbacks)
 
   const handleCheckboxChange = (id) => {
     console.log("Checkbox cliccata, ID:", id)
@@ -116,6 +119,20 @@ const CreaScheda = function () {
   useEffect(() => {
     dispatch(fetchSchedePubbliche())
   }, [dispatch])
+
+  useEffect(() => {
+    if (selectedSchedaPubblica !== null) {
+      const idScheda = schedePubbliche[selectedSchedaPubblica].id
+      dispatch(fetchFeedbacks(idScheda))
+    }
+  }, [selectedSchedaPubblica])
+
+  const handleSubmitFeedback = () => {
+    const idScheda = schedePubbliche[selectedSchedaPubblica].id
+    dispatch(postFeedback({ commento, voto, schedaId: idScheda }))
+    setCommento("")
+    setVoto(5)
+  }
 
   return (
     <>
@@ -402,6 +419,50 @@ const CreaScheda = function () {
                         </div>
                       )
                     )}
+
+                  <hr />
+                  <h5>Feedback degli utenti:</h5>
+                  {feedbacks.length === 0 && <p>Nessun feedback ancora.</p>}
+                  <ul>
+                    {feedbacks.map((fb, i) => (
+                      <li key={i}>
+                        <strong>{fb.autore}</strong> ({fb.voto}/5):{" "}
+                        {fb.commento}
+                        <br />
+                        <small>{new Date(fb.data).toLocaleString()}</small>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <hr />
+                  <h5>Lascia un tuo feedback:</h5>
+                  <Form.Group>
+                    <Form.Label>Commento</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      value={commento}
+                      onChange={(e) => setCommento(e.target.value)}
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mt-2">
+                    <Form.Label>Voto (1-5)</Form.Label>
+                    <Form.Control
+                      type="number"
+                      min={1}
+                      max={5}
+                      value={voto}
+                      onChange={(e) => setVoto(parseInt(e.target.value))}
+                    />
+                  </Form.Group>
+
+                  <Button
+                    variant="success"
+                    className="mt-3"
+                    onClick={handleSubmitFeedback}
+                  >
+                    Invia feedback
+                  </Button>
                 </Modal.Body>
               </Modal>
             </>

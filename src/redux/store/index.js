@@ -8,7 +8,7 @@ import schedaReduce from "../reducers/schedaReduce"
 import saveSchedaReducer from "../reducers/saveSchedaReducer"
 import schedePubblicheReducer from "../reducers/schedePubblicheReducer"
 import deleteSchedaReducer from "../reducers/deleteSchedaReducer"
-
+import feedbackReducer from "../reducers/feedBackReducer"
 const tokenFromStorage = localStorage.getItem("token")
 
 const preloadedState = {
@@ -30,6 +30,7 @@ const store = configureStore({
     saveScheda: saveSchedaReducer,
     schedePubbliche: schedePubblicheReducer,
     deleteScheda: deleteSchedaReducer,
+    feedback: feedbackReducer,
   },
   preloadedState,
 })
