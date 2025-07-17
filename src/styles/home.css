@@ -12,8 +12,14 @@
 .home-img {
   max-width: 100%;
   height: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(244, 243, 243, 0.379);
+}
+
+.imgv2 {
+  width: 100%;
+  aspect-ratio: 12 / 13;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.1);
 }
 
 .textCit {

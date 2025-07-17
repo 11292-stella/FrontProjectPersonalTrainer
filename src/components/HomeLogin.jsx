@@ -19,6 +19,10 @@ import { fetchEsercizi } from "../redux/action/esercizioAction"
 import { Link } from "react-router-dom"
 import "../styles/homeLogin.css"
 import { fetchSchedeSalvate } from "../redux/action/saveSchedaAction"
+import { GiWeightLiftingUp } from "react-icons/gi"
+import { FaDumbbell } from "react-icons/fa"
+import { GiMuscleUp } from "react-icons/gi"
+import { GiLeg } from "react-icons/gi"
 
 const HomeLogin = function () {
   const dispatch = useDispatch()
@@ -68,27 +72,29 @@ const HomeLogin = function () {
         <main className="flex-grow-1">
           <Container>
             <Row className="justify-content-center">
-              <h1 className="text-center mt-5">
+              <h1 className="text-center text-danger  mt-5">
                 Dall'Anatomia all'Allenamento: <br /> La Tua Guida Definitiva ai
                 Muscoli e agli Esercizi
               </h1>
 
               <div className="primop text-center">
-                <h2 className="text-center mt-3 mb-4">
-                  Costruisci la tua forza, <br /> un muscolo alla volta
+                <h2 className="text-center text-warning mt-3 mb-4">
+                  <GiWeightLiftingUp className="text-danger" /> Costruisci la
+                  tua forza, <br /> un muscolo alla volta
                 </h2>{" "}
                 Ogni grande trasformazione inizia con la consapevolezza. <br />{" "}
                 In questo viaggio esploreremo la parte superiore del corpo: la
-                sede della tua potenza,
-                <br /> della tua postura e della tua determinazione. <br />{" "}
-                <br /> Scoprirai i muscoli che ti permettono di sollevare,
-                spingere, tirare e abbracciare il mondo con più forza. Per ogni
-                gruppo muscolare ti guideremo con: una spiegazione semplice e
-                chiara; <br /> gli esercizi più efficaci per scolpire il tuo
-                corpo e superare i tuoi limiti. <br /> Il tuo corpo è il tuo
-                strumento. <br /> Impara a conoscerlo, allenalo con intenzione,
-                e diventa la versione più forte di te stesso. <br /> <br />{" "}
-                <span className="citazioni">
+                sede della tua potenza <FaDumbbell className="text-danger" />
+                <br /> della tua postura e della tua determinazione.
+                <GiMuscleUp className="text-danger" /> <br /> <br /> Scoprirai i
+                muscoli che ti permettono di sollevare, spingere, tirare e
+                abbracciare il mondo con più forza. Per ogni gruppo muscolare ti
+                guideremo con: una spiegazione semplice e chiara; <br /> gli
+                esercizi più efficaci per scolpire il tuo corpo e superare i
+                tuoi limiti. <br /> Il tuo corpo è il tuo strumento. <br />{" "}
+                Impara a conoscerlo, allenalo con intenzione, e diventa la
+                versione più forte di te stesso. <br /> <br />{" "}
+                <span className="citazioni text-warning">
                   {" "}
                   “La forza non nasce solo nei muscoli, ma nella volontà di
                   usarli per sollevare te stesso ogni giorno, dentro e fuori la
@@ -228,11 +234,13 @@ const HomeLogin = function () {
               {/**Seconda img */}
 
               <div className="primop text-center mt-5">
-                <h2 className="mb-3">
-                  La forza parte da terra: esplora la parte inferiore del corpo{" "}
+                <h2 className="mb-3 text-warning">
+                  <GiWeightLiftingUp className="text-danger" /> La forza parte
+                  da terra: esplora la parte inferiore del corpo{" "}
                 </h2>{" "}
                 La vera potenza non si costruisce solo con le braccia, ma si
-                radica nelle fondamenta: <br /> gambe forti, glutei attivi,
+                radica nelle fondamenta: <br />
+                <GiLeg className="text-danger" /> gambe forti, glutei attivi,
                 stabilità incrollabile. <br />
                 In questa sezione ci immergeremo nell’anatomia della parte
                 inferiore del corpo <br /> <br />
@@ -246,7 +254,7 @@ const HomeLogin = function () {
                 e superando i tuoi limiti. <br /> Il tuo corpo è il tuo
                 strumento. <br /> Costruisci la forza che parte da dentro… e da
                 terra. <br /> <br />{" "}
-                <span className="citazioni">
+                <span className="citazioni text-warning">
                   “Non puoi costruire un grattacielo su fondamenta fragili.
                   Allena le tue basi, e tutto il resto si eleverà con te.”
                 </span>
@@ -331,7 +339,7 @@ const HomeLogin = function () {
                 che sta dietro significa costruire forza autentica, equilibrio e
                 resistenza. <br /> Perché è proprio ciò che non si vede a
                 determinare quanto lontano puoi arrivare. <br /> <br />{" "}
-                <span className="citazioni">
+                <span className="citazioni text-warning">
                   {" "}
                   “La stabilità non si conquista con l’apparenza, ma con la
                   forza silenziosa che lavora dietro ogni passo.”
@@ -401,16 +409,19 @@ const HomeLogin = function () {
                 </div>
               </Col>
               {/**Fine img */}
-              <div className="primop text-center mt-5">
-                <h2>Ci siamo!!</h2>
+              <div className="primop  text-center mt-5">
+                <h2 className="text-danger">Ci siamo!!</h2>
                 Ora che hai esplorato i muscoli di tutte le parti del corpo e
                 compreso come allenarli, <br />
                 sei pronto a portare il tuo percorso di fitness al livello
                 successivo. <br /> <br />
                 Per continuare a divertirti e sperimentare con il tuo
                 allenamento, crea la tua scheda di allenamento personalizzata.{" "}
-                <br /> <br /> È un modo divertente per mettere in pratica ciò
-                che hai imparato e scoprire nuove combinazioni di esercizi!
+                <br /> <br />{" "}
+                <span className="text-warning">
+                  È un modo divertente per mettere in pratica ciò che hai
+                  imparato e scoprire nuove combinazioni di esercizi!
+                </span>
               </div>
 
               <Link to="/crea-scheda" className="text-center mb-4 link-crea">

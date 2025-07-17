@@ -4,6 +4,7 @@ import HomeLogin from "./components/HomeLogin.jsx"
 import NavBar from "./components/NavBar"
 import { Routes, Route } from "react-router-dom"
 import CreaScheda from "./components/CreaScheda.jsx"
+import Prodotti from "./components/Prodotti.jsx"
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/homeLogin" element={<HomeLogin />} />
         <Route path="/crea-scheda" element={<CreaScheda />} />
+        <Route path="/prodotti" element={<Prodotti />} />
       </Routes>
 
       <Footer />

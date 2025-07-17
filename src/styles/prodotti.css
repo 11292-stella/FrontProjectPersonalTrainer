@@ -1,0 +1,23 @@
+.prodotti-background {
+  background-image: url("/public/pr1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(18, 2, 2, 0.323);
+  background-blend-mode: darken;
+}
+
+.bottone-p {
+  background-color: rgb(160, 1, 1);
+  border: none; /* togli il bordo default se vuoi */
+  color: white; /* testo bianco */
+}
+
+.bottone-p:hover {
+  background-color: rgb(200, 10, 10); /* rosso più chiaro al passaggio */
+}
+
+.bottone-p:focus {
+  outline: none; /* rimuovo l'outline blu */
+  box-shadow: 0 0 0 3px rgba(160, 1, 1, 0.5); /* ombra rossa delicata come focus */
+}

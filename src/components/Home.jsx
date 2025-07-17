@@ -13,6 +13,9 @@ import { loginUser } from "../redux/action/authActions"
 import { useState, useEffect } from "react"
 import { registerUser } from "../redux/action/registerActions"
 import { useNavigate } from "react-router-dom"
+import { FaDumbbell } from "react-icons/fa"
+import { FaTachometerAlt } from "react-icons/fa"
+import { FaCompass } from "react-icons/fa"
 
 const Home = function () {
   const [username, setUsername] = useState("")
@@ -71,7 +74,7 @@ const Home = function () {
             <Row>
               <Col md={5}>
                 <Image
-                  src="/imgprinc.jpeg"
+                  src="/img1.png"
                   alt="Descrizione immagine"
                   fluid
                   rounded
@@ -82,7 +85,7 @@ const Home = function () {
                 md={6}
                 className="d-flex flex-column mt-md-0 mt-3 justify-content-center text-light "
               >
-                <h2 className="textCit">
+                <h2 className="textCit text-danger">
                   "Non è importante quanto colpisci forte. <br /> <br />È
                   importante quanto sai resistere ai colpi, e se hai la forza di
                   andare avanti. <br /> <br />È così che si vince!"
@@ -100,8 +103,9 @@ const Home = function () {
                 className="d-flex flex-column mt-md-0 mt-3 justify-content-center text-light "
               >
                 <p className="text-p">
-                  🔥{" "}
-                  <span className="spanText1">
+                  {" "}
+                  <FaDumbbell className="me-2 text-danger " />
+                  <span className="spanText1 text-warning">
                     Benvenuto in Sneaky Workout: L'Arena dove Conquisti Te
                     Stesso.
                   </span>{" "}
@@ -117,11 +121,11 @@ const Home = function () {
               </Col>
               <Col md={4}>
                 <Image
-                  src="/1img.jpeg"
+                  src="/imvg2.png"
                   alt="Descrizione immagine"
                   fluid
                   rounded
-                  className="home-img"
+                  className="imgv2"
                 />
               </Col>
             </Row>
@@ -131,7 +135,7 @@ const Home = function () {
             <Row>
               <Col md={4}>
                 <Image
-                  src="/2img.jpeg"
+                  src="/imgv3.png"
                   alt="Descrizione immagine"
                   fluid
                   rounded
@@ -143,13 +147,18 @@ const Home = function () {
                 className="d-flex flex-column mt-md-0 mt-3 justify-content-center text-light "
               >
                 <p className="text-p">
-                  Qui si tratta di ben più che sollevare pesi o correre
-                  chilometri. <br /> Si tratta di forgiare la tua disciplina,
-                  temprare la tua volontà e dominare ogni aspetto della tua
-                  vita. <br /> Ti offriamo le strategie per vincere le tue
-                  battaglie: <br /> sia che si tratti di superare la fatica
-                  fisica, di affrontare le sfide mentali che ti tengono
-                  bloccato, o di trovare la forza per imporsi nel mondo sociale.
+                  <FaTachometerAlt className="me-2 text-danger" />
+                  <span className="text-warning spanText1 ">
+                    {" "}
+                    Qui si tratta di ben più che sollevare pesi o correre
+                    chilometri.{" "}
+                  </span>
+                  <br /> Si tratta di forgiare la tua disciplina, temprare la
+                  tua volontà e dominare ogni aspetto della tua vita. <br /> Ti
+                  offriamo le strategie per vincere le tue battaglie: <br /> sia
+                  che si tratti di superare la fatica fisica, di affrontare le
+                  sfide mentali che ti tengono bloccato, o di trovare la forza
+                  per imporsi nel mondo sociale.
                 </p>
               </Col>
             </Row>
@@ -162,18 +171,21 @@ const Home = function () {
                 className="d-flex flex-column mt-md-0 mt-3 justify-content-center text-light order-2 order-md-1"
               >
                 <p className="text-p">
-                  Sei un neofita che cerca una guida solida e motivante? <br />{" "}
-                  O sei già un veterano dell'allenamento in cerca di quel
-                  qualcosa in più per superare il plateau? <br />{" "}
-                  Indipendentemente dal tuo livello, su Sneaky Workout troverai
-                  accesso esclusivo a programmi di allenamento all'avanguardia,
-                  risorse didattiche approfondite e una motivazione inossidabile
-                  per non mollare mai.
+                  <FaCompass className="me-2 text-danger" />{" "}
+                  <span className="text-warning spanText1">
+                    Sei un neofita che cerca una guida solida e motivante? O sei
+                    già un veterano dell'allenamento in cerca di quel qualcosa
+                    in più per superare il plateau?{" "}
+                  </span>{" "}
+                  <br /> Indipendentemente dal tuo livello, su Sneaky Workout
+                  troverai accesso esclusivo a programmi di allenamento
+                  all'avanguardia, risorse didattiche approfondite e una
+                  motivazione inossidabile per non mollare mai.
                 </p>
               </Col>
               <Col md={4} className="order-1 order-md-2">
                 <Image
-                  src="/3img.jpeg"
+                  src="/imgv4.png"
                   alt="Descrizione immagine"
                   fluid
                   rounded

@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { logoutUser } from "../redux/action/authActions"
 import { FaSignOutAlt } from "react-icons/fa"
+import { useSelector } from "react-redux"
 
 const NavBar = function () {
   const dispatch = useDispatch()
@@ -23,6 +24,8 @@ const NavBar = function () {
     dispatch(logoutUser())
     navigate("/home")
   }
+  const token = useSelector((state) => state.authLog.token)
+  const isLoggedIn = useSelector((state) => state.authLog.isLoggedIn)
 
   return (
     <>
@@ -61,7 +64,11 @@ const NavBar = function () {
               <Nav.Link as={NavLink} to="/home">
                 home
               </Nav.Link>
-              <Nav.Link href="/contatti">Contatti</Nav.Link>
+              {isLoggedIn && (
+                <Nav.Link as={NavLink} to="/crea-scheda">
+                  Crea scheda
+                </Nav.Link>
+              )}
               <Nav.Link href="/prodotti">Prodotti</Nav.Link>
               <NavDropdown title="Altro" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

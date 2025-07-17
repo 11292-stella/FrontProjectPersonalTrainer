@@ -158,7 +158,10 @@ const CreaScheda = function () {
               <Form onSubmit={handleSubmit}>
                 <div className="d-flex flex-wrap align-items-center gap-2 mb-2 justify-content-center">
                   <Dropdown>
-                    <Dropdown.Toggle className="scheda-p" id="dropdown-muscoli">
+                    <Dropdown.Toggle
+                      className="bottone-p"
+                      id="dropdown-muscoli"
+                    >
                       Seleziona muscoli
                     </Dropdown.Toggle>
                     <Dropdown.Menu
@@ -189,7 +192,7 @@ const CreaScheda = function () {
 
                   <Button
                     type="submit"
-                    className="scheda-p"
+                    className="bottone-p"
                     disabled={saving}
                     style={{ minWidth: "150px" }}
                   >
@@ -199,7 +202,7 @@ const CreaScheda = function () {
                   {esercizi.length > 0 && (
                     <Button
                       type="button"
-                      className=" scheda-p  mt-2 mt-lg-0"
+                      className=" bottone-p  mt-2 mt-lg-0"
                       style={{ minWidth: "180px" }}
                       onClick={handleSaveScheda}
                     >
