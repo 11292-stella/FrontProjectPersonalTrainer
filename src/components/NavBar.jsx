@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom"
 import { logoutUser } from "../redux/action/authActions"
 import { FaSignOutAlt } from "react-icons/fa"
 import { useSelector } from "react-redux"
+import IconaCarrello from "./IconaCarrello"
 
 const NavBar = function () {
   const dispatch = useDispatch()
@@ -49,45 +50,43 @@ const NavBar = function () {
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            {/* Barra di ricerca */}
-            <Form className="d-flex mx-auto" style={{ maxWidth: "300px" }}>
-              <Form.Control
-                type="search"
-                placeholder="Cerca"
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button variant="outline-danger">Cerca</Button>
-            </Form>
-
-            <Nav className="ms-auto">
+            <Nav className="ms-auto align-items-center">
               <Nav.Link as={NavLink} to="/home">
-                home
+                Home
               </Nav.Link>
+
               {isLoggedIn && (
                 <Nav.Link as={NavLink} to="/crea-scheda">
                   Crea scheda
                 </Nav.Link>
               )}
+
               <Nav.Link href="/prodotti">Prodotti</Nav.Link>
-              <NavDropdown title="Altro" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
-              <Nav.Link
-                onClick={handleLogout}
-                style={{ cursor: "pointer" }}
-                title="Esci"
-                className="ms-3 d-flex align-items-center"
-              >
-                <FaSignOutAlt size={20} color="white" />
-              </Nav.Link>
+
+              {isLoggedIn && <IconaCarrello />}
+
+              {/* Bottone aggiuntivo per utenti loggati */}
+              {isLoggedIn && (
+                <Button
+                  variant="outline-light"
+                  className="ms-3 mt-1"
+                  onClick={() => navigate("/carrello")}
+                >
+                  Pagina Utente
+                </Button>
+              )}
+
+              {/*  Logout visibile solo se loggato */}
+              {isLoggedIn && (
+                <Nav.Link
+                  onClick={handleLogout}
+                  style={{ cursor: "pointer" }}
+                  title="Esci"
+                  className="ms-3  d-flex align-items-center"
+                >
+                  <FaSignOutAlt size={20} color="white" />
+                </Nav.Link>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

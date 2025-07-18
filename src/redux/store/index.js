@@ -10,6 +10,8 @@ import schedePubblicheReducer from "../reducers/schedePubblicheReducer"
 import deleteSchedaReducer from "../reducers/deleteSchedaReducer"
 import feedbackReducer from "../reducers/feedBackReducer"
 import prodottiReducer from "../reducers/prodottiReducer"
+import iconaCarrelloReducer from "../reducers/IconaCarrelloReducer"
+
 const tokenFromStorage = localStorage.getItem("token")
 
 const preloadedState = {
@@ -33,6 +35,7 @@ const store = configureStore({
     deleteScheda: deleteSchedaReducer,
     feedback: feedbackReducer,
     prodotti: prodottiReducer,
+    carrello: iconaCarrelloReducer,
   },
   preloadedState,
 })

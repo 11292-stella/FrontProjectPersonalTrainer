@@ -4,6 +4,9 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import fetchProdotti from "../redux/action/prodottiActions"
 import { FaShoppingCart } from "react-icons/fa"
+import prodottiImg from "../prodottiImg.json"
+
+import { fetchiconaCarrello } from "../redux/action/IconaCarrelloAction"
 
 const Prodotti = function () {
   const prodotti = useSelector((state) => state.prodotti.prodotti)
@@ -38,15 +41,31 @@ const Prodotti = function () {
             {prodotti.map((prodotto) => (
               <Col xs={12} sm={6} md={4} lg={3} xl={2} key={prodotto.id}>
                 <Card className="small-card h-100">
-                  <Card.Header className="scheda-p">
+                  <Card.Header className="scheda-p text-light">
                     {prodotto.nome}
                   </Card.Header>
-                  <Card.Img variant="top" src="imvg2.npg" />
+                  <Card.Img
+                    variant="top"
+                    src={prodottiImg[prodotto.id] || "/img/default.png"}
+                    className="card-img-fissa"
+                  />
                   <Card.Body className="scheda-b text-light text-center">
                     <Card.Text>{prodotto.descrizione}</Card.Text>
                     <Card.Text>{prodotto.prezzo} €</Card.Text>
                   </Card.Body>
-                  <Button className="bottone-p ">
+                  <Button
+                    className="bottone-p "
+                    onClick={() =>
+                      dispatch(
+                        fetchiconaCarrello({
+                          prodottoId: prodotto.id,
+                          nome: prodotto.nome,
+                          descrizione: prodotto.descrizione,
+                          quantita: 1,
+                        })
+                      )
+                    }
+                  >
                     <FaShoppingCart className="me-2 " /> Acquista
                   </Button>
                 </Card>
