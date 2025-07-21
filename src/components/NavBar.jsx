@@ -50,7 +50,7 @@ const NavBar = function () {
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto align-items-center">
+            <Nav className="ms-auto flex-column flex-lg-row align-items-lg-center">
               <Nav.Link as={NavLink} to="/home">
                 Home
               </Nav.Link>
@@ -61,28 +61,21 @@ const NavBar = function () {
                 </Nav.Link>
               )}
 
-              <Nav.Link href="/prodotti">Prodotti</Nav.Link>
+              {isLoggedIn && <Nav.Link href="/prodotti">Prodotti</Nav.Link>}
 
-              {isLoggedIn && <IconaCarrello />}
-
-              {/* Bottone aggiuntivo per utenti loggati */}
               {isLoggedIn && (
-                <Button
-                  variant="outline-light"
-                  className="ms-3 mt-1"
-                  onClick={() => navigate("/carrello")}
-                >
-                  Pagina Utente
-                </Button>
+                <div className="d-flex justify-content-start w-lg-auto mt-2 mt-lg-0 ms-lg-3">
+                  <IconaCarrello />
+                </div>
               )}
 
-              {/*  Logout visibile solo se loggato */}
+              {/* Logout visibile solo se loggato */}
               {isLoggedIn && (
                 <Nav.Link
                   onClick={handleLogout}
                   style={{ cursor: "pointer" }}
                   title="Esci"
-                  className="ms-3  d-flex align-items-center"
+                  className="mt-2 mt-lg-0 d-flex align-items-center ms-lg-3"
                 >
                   <FaSignOutAlt size={20} color="white" />
                 </Nav.Link>

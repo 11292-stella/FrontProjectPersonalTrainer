@@ -2,31 +2,59 @@ import {
   FETCH_CARRELLO_REQUEST,
   FETCH_CARRELLO_SUCCESS,
   FETCH_CARRELLO_FAILURE,
-  DELETE_VOCE_CARRELLO_SUCCESS,
-} from "../action/fetchVociCarrelloAction"
+} from "./fetchVociCarrelloAction"
 
-const initialState = {
-  voci: [],
-  loading: false,
-  error: null,
-}
+export const DELETE_VOCE_CARRELLO_SUCCESS = "DELETE_VOCE_CARRELLO_SUCCESS"
 
-const carrelloReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case FETCH_CARRELLO_REQUEST:
-      return { ...state, loading: true, error: null }
-    case FETCH_CARRELLO_SUCCESS:
-      return { ...state, loading: false, voci: action.payload }
-    case FETCH_CARRELLO_FAILURE:
-      return { ...state, loading: false, error: action.payload }
-    case DELETE_VOCE_CARRELLO_SUCCESS:
-      return {
-        ...state,
-        voci: state.voci.filter((voce) => voce.id !== action.payload),
+export const deleteVoceCarrello = (voceCarrelloId) => {
+  return async (dispatch, getState) => {
+    const token = getState().authLog.token
+    console.log("Token in deleteVoceCarrello:", token)
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/carrello/${voceCarrelloId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      console.log("Risposta delete voce carrello (status):", response.status)
+
+      if (!response.ok) {
+        throw new Error(
+          "Errore durante l'eliminazione della voce dal carrello: " +
+            response.statusText
+        )
       }
-    default:
-      return state
+
+      dispatch({
+        type: DELETE_VOCE_CARRELLO_SUCCESS,
+        payload: voceCarrelloId,
+      })
+
+      dispatch({ type: FETCH_CARRELLO_REQUEST })
+      const updatedResponse = await fetch(
+        "http://localhost:8080/carrello/utente",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      if (!updatedResponse.ok) {
+        throw new Error(
+          "Errore durante il re-fetch del carrello dopo eliminazione"
+        )
+      }
+      const updatedData = await updatedResponse.json()
+      dispatch({ type: FETCH_CARRELLO_SUCCESS, payload: updatedData })
+    } catch (error) {
+      console.error("Errore rimozione voce carrello:", error.message)
+    }
   }
 }
-
-export default carrelloReducer

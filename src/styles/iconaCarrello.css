@@ -1,6 +1,6 @@
 .bottone-carrello {
   position: fixed;
-  top: 80px; /* o quello che ti serve per stare sotto la navbar */
+  top: 80px;
   right: 20px;
   z-index: 1050;
 }

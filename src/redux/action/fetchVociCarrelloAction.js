@@ -9,7 +9,7 @@ export const fetchCarrello = () => {
     try {
       const token = getState().authLog.token
 
-      const response = await fetch("http://localhost:8080/carrello", {
+      const response = await fetch("http://localhost:8080/carrello/utente", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -1,31 +1,48 @@
 import { Modal, Button, Badge, ListGroup } from "react-bootstrap"
 import { FaShoppingCart } from "react-icons/fa"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { NavLink } from "react-router-dom"
 import { fetchCarrello } from "../redux/action/fetchVociCarrelloAction"
 import { useDispatch, useSelector } from "react-redux"
+import fetchProdotti from "../redux/action/prodottiActions"
 
 const IconaCarrello = () => {
   const [show, setShow] = useState(false)
   const carrello = useSelector((state) => state.carrello.voci || [])
   const prodotti = useSelector((state) => state.prodotti.prodotti || [])
 
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchProdotti())
+  }, [dispatch])
+
+  useEffect(() => {
+    if (show) {
+      dispatch(fetchCarrello())
+    }
+  }, [show, dispatch])
+
   const totaleProdotti = carrello.reduce((acc, voce) => acc + voce.quantita, 0)
 
   const carrelloDettagliato = carrello.map((voce) => {
-    const prodotto = prodotti.find((p) => p.id === voce.prodottoId)
+    const prodottoIdToFind = voce.prodottoId || voce.prodotto?.id
+    const prodotto = prodotti.find((p) => p.id === prodottoIdToFind)
+
     return {
       ...voce,
-      nomeProdotto: prodotto?.nome || "Prodotto non trovato",
-      descrizioneProdotto: prodotto?.descrizione || "",
-      prezzoUnitario: prodotto?.prezzo || 0,
-      totale: (prodotto?.prezzo || 0) * voce.quantita,
+      nomeProdotto:
+        voce.nomeProdotto || prodotto?.nome || "Prodotto non trovato",
+      descrizioneProdotto:
+        voce.descrizioneProdotto || prodotto?.descrizione || "",
+      prezzoUnitario: voce.prezzoUnitario || prodotto?.prezzo || 0,
+      totale: (voce.prezzoUnitario || prodotto?.prezzo || 0) * voce.quantita,
+      prodottoId: prodottoIdToFind,
     }
   })
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
-  const dispatch = useDispatch()
 
   return (
     <>
@@ -51,8 +68,8 @@ const IconaCarrello = () => {
             <p>Il carrello è vuoto</p>
           ) : (
             <ListGroup>
-              {carrelloDettagliato.map((voce, idx) => (
-                <ListGroup.Item className=" bg-warning" key={idx}>
+              {carrelloDettagliato.map((voce) => (
+                <ListGroup.Item className=" bg-warning" key={voce.id}>
                   {voce.nomeProdotto} - Quantità: {voce.quantita} - Prezzo
                   totale: €{voce.totale}
                 </ListGroup.Item>

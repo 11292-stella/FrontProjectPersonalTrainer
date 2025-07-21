@@ -23,6 +23,7 @@ export const fetchiconaCarrello = (voceCarrelloDto) => {
       }
 
       const data = await response.json()
+      console.log("Dati ricevuti da aggiungi al carrello:", data)
 
       dispatch({
         type: AGGIUNGI_AL_CARRELLO_SUCCESS,

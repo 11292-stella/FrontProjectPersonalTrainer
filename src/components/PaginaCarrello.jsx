@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCarrello } from "../redux/action/fetchVociCarrelloAction"
-import { Card, Spinner, Alert, Button } from "react-bootstrap"
+import { Card, Spinner, Alert, Button, Row, Col } from "react-bootstrap"
 import { deleteVoceCarrello } from "../redux/action/deleteVoceCarrello"
 import prodottiImg from "../prodottiImg.json"
 import fetchProdotti from "../redux/action/prodottiActions"
@@ -9,31 +9,54 @@ import fetchProdotti from "../redux/action/prodottiActions"
 const PaginaCarrello = () => {
   const dispatch = useDispatch()
   const { voci, loading, error } = useSelector((state) => state.carrello)
-  const prodotti = useSelector((state) => state.prodotti.prodotti || [])
+  const prodotti = useSelector((state) => state.prodotti.prodotti)
 
   useEffect(() => {
+    console.log(
+      "PaginaCarrello useEffect: Dispatching fetchCarrello e fetchProdotti"
+    )
     dispatch(fetchCarrello())
-  }, [dispatch])
-
-  useEffect(() => {
     dispatch(fetchProdotti())
   }, [dispatch])
 
   const handleDelete = (voceCarrelloId) => {
-    console.log("Chiamata deleteVoceCarrello con id:", voceCarrelloId)
-    dispatch(deleteVoceCarrello(voceCarrelloId))
+    if (
+      window.confirm(
+        "Sei sicuro di voler eliminare questo prodotto dal carrello?"
+      )
+    ) {
+      console.log(
+        "PaginaCarrello: Chiamata deleteVoceCarrello con id:",
+        voceCarrelloId
+      )
+      dispatch(deleteVoceCarrello(voceCarrelloId))
+    }
+  }
+
+  const handleCheckout = () => {
+    window.alert("Pagamento avvenuto!")
   }
 
   const vociDettagliate = voci.map((voce) => {
-    console.log("Voce carrello:", voce)
-    const prodotto =
-      voce.prodotto || prodotti.find((p) => p.id === voce.prodottoId)
+    const prodottoIdToFind = voce.prodottoId || voce.prodotto?.id
+    const prodottoCorrispondente = prodotti.find(
+      (p) => p.id === prodottoIdToFind
+    )
+
     return {
       ...voce,
-      nomeProdotto: prodotto?.nome || "Prodotto non trovato",
-      descrizioneProdotto: prodotto?.descrizione || "",
-      prezzoUnitario: prodotto?.prezzo || 0,
-      totale: (prodotto?.prezzo || 0) * voce.quantita,
+      nomeProdotto:
+        voce.nomeProdotto ||
+        prodottoCorrispondente?.nome ||
+        "Prodotto non trovato",
+      descrizioneProdotto:
+        voce.descrizioneProdotto || prodottoCorrispondente?.descrizione || "",
+      prezzoUnitario:
+        voce.prezzoUnitario || prodottoCorrispondente?.prezzo || 0,
+      totale:
+        (voce.prezzoUnitario || prodottoCorrispondente?.prezzo || 0) *
+        voce.quantita,
+      prodottoId: prodottoIdToFind,
     }
   })
 
@@ -43,7 +66,7 @@ const PaginaCarrello = () => {
   )
 
   if (loading) return <Spinner animation="border" />
-  if (error) return <Alert variant="danger">{error}</Alert>
+  if (error) return <Alert variant="danger"> {error} </Alert>
 
   return (
     <div className="container mt-4">
@@ -52,32 +75,48 @@ const PaginaCarrello = () => {
         <p>Il carrello è vuoto</p>
       ) : (
         <>
-          {vociDettagliate.map((voce, index) => (
-            <Card key={index} className="mb-3">
+          {vociDettagliate.map((voce) => (
+            <Card key={voce.id} className="mb-3">
               <Card.Body>
-                <Card.Img
-                  variant="top"
-                  src={prodottiImg[voce.prodottoId] || "/img/default.png"}
-                  className="card-img-fissa"
-                />
-
-                <Card.Title>{voce.nomeProdotto}</Card.Title>
-                <Card.Text>{voce.descrizioneProdotto}</Card.Text>
-                <p>Quantità: {voce.quantita}</p>
-                <p>Prezzo unitario: {voce.prezzoUnitario}€</p>
-                <p>Totale: {voce.totale}€</p>
-
-                <Button variant="danger" onClick={() => handleDelete(voce.id)}>
-                  Rimuovi
-                </Button>
+                <Row className="align-items-center">
+                  <Col xs={12} md={4} className="text-center mb-3 mb-md-0">
+                    <Card.Img
+                      src={prodottiImg[voce.prodottoId] || "/img/default.png"}
+                      alt={voce.nomeProdotto}
+                      style={{
+                        maxWidth: "150px",
+                        height: "auto",
+                        borderRadius: "8px",
+                      }}
+                    />
+                  </Col>
+                  <Col xs={12} md={8}>
+                    <Card.Title className="h5">{voce.nomeProdotto}</Card.Title>
+                    <Card.Text>{voce.descrizioneProdotto}</Card.Text>
+                    <p className="mb-1">
+                      Quantità: <strong>{voce.quantita}</strong>
+                    </p>
+                    <p className="mb-1">
+                      Prezzo unitario: <strong>{voce.prezzoUnitario} €</strong>
+                    </p>
+                    <p className="fw-bold">Totale: {voce.totale} €</p>
+                    <Button
+                      variant="danger"
+                      onClick={() => handleDelete(voce.id)}
+                    >
+                      Rimuovi
+                    </Button>
+                  </Col>
+                </Row>
               </Card.Body>
             </Card>
           ))}
-
-          <Card className="mt-4">
+          <Card className="mt-4 mb-3">
             <Card.Body>
-              <h4>Totale carrello: {totaleCarrello}€</h4>
-              <Button variant="success">Procedi al pagamento</Button>
+              <h4>Totale carrello: {totaleCarrello} €</h4>
+              <Button variant="success" onClick={handleCheckout}>
+                Procedi al pagamento
+              </Button>
             </Card.Body>
           </Card>
         </>
