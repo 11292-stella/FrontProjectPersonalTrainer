@@ -13,9 +13,8 @@ const Footer = function () {
               diritti riservati.
             </p>
             <p>
-              P.IVA 01234567890 | <a href="/termini">Termini e condizioni</a> |{" "}
-              <a href="/privacy">Privacy e cookie</a> |{" "}
-              <a href="/feedback">Lascia un feedback</a>
+              P.IVA 01234567890 | <a>Termini e condizioni</a> |{" "}
+              <a>Privacy e cookie</a> | <a>Lascia un feedback</a>
             </p>
           </Col>
         </Row>
