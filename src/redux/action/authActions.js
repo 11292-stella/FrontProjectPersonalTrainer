@@ -33,7 +33,7 @@ export const loginUser = (credentials) => {
 
     axios
       .post(
-        "https://conservation-umeko-stella02-65bf7872.koyeb.app",
+        "https://conservation-umeko-stella02-65bf7872.koyeb.app/auth/login",
         credentials
       )
       .then((response) => {
