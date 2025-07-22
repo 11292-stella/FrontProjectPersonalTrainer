@@ -26,7 +26,10 @@ export const registerUser = (credentials) => {
     dispatch(registerRequest(credentials))
 
     axios
-      .post("http://localhost:8080/auth/register", credentials)
+      .post(
+        "https://conservation-umeko-stella02-65bf7872.koyeb.app/auth/register",
+        credentials
+      )
       .then((response) => {
         dispatch(registerSuccess(response.data))
       })

@@ -9,11 +9,14 @@ export const fetchEsercizi = () => {
     try {
       const token = getState().authLog.token
 
-      const response = await fetch("http://localhost:8080/esercizi", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      const response = await fetch(
+        "https://conservation-umeko-stella02-65bf7872.koyeb.app/esercizi",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
 
       if (!response.ok) {
         throw new Error("Errore nella richiest:" + response.status)

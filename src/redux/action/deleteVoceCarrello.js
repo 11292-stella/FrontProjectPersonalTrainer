@@ -6,7 +6,7 @@ export const deleteVoceCarrello = (voceCarrelloId) => {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/carrello/${voceCarrelloId}`,
+        `https://conservation-umeko-stella02-65bf7872.koyeb.app/carrello/${voceCarrelloId}`,
         {
           method: "DELETE",
           headers: {

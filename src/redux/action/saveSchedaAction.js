@@ -15,18 +15,21 @@ export const saveScheda = (esercizi) => {
       const token = getState().authLog.token
       console.log("Tutto lo stato:", getState())
 
-      const response = await fetch("http://localhost:8080/save", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nomeScheda: "scheda personalizzata",
-          esercizi,
-          visibilePubblicamente: true,
-        }),
-      })
+      const response = await fetch(
+        "https://conservation-umeko-stella02-65bf7872.koyeb.app/save",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nomeScheda: "scheda personalizzata",
+            esercizi,
+            visibilePubblicamente: true,
+          }),
+        }
+      )
 
       if (!response.ok) {
         throw new Error("Errore nella richiesta: " + response.status)
@@ -58,13 +61,16 @@ export const fetchSchedeSalvate = () => async (dispatch, getState) => {
   try {
     const token = getState().authLog.token
 
-    const res = await fetch("http://localhost:8080/save/schede", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
+    const res = await fetch(
+      "https://conservation-umeko-stella02-65bf7872.koyeb.app/save/schede",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    )
 
     if (res.status === 204) {
       console.warn("Nessuna scheda salvata al momento")

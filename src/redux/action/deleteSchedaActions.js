@@ -8,12 +8,15 @@ export const deleteScheda = (id) => async (dispatch, getState) => {
     dispatch({ type: DELETE_SCHEDA_REQUESTE })
 
     const token = getState().authLog.token
-    const res = await fetch(`http://localhost:8080/save/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    const res = await fetch(
+      `https://conservation-umeko-stella02-65bf7872.koyeb.app/save/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
 
     if (res.ok) {
       dispatch({ type: DELETE_SCHEDA_SUCCESS, payload: id })
