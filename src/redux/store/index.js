@@ -10,7 +10,7 @@ import schedePubblicheReducer from "../reducers/schedePubblicheReducer"
 import deleteSchedaReducer from "../reducers/deleteSchedaReducer"
 import feedbackReducer from "../reducers/feedBackReducer"
 import prodottiReducer from "../reducers/prodottiReducer"
-import iconaCarrelloReducer from "../reducers/IconaCarrelloReducer"
+import iconaCarrelloReducer from "../reducers/iconaCarrelloReducer"
 
 const tokenFromStorage = localStorage.getItem("token")
 

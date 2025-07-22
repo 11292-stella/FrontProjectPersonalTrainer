@@ -6,7 +6,7 @@ import fetchProdotti from "../redux/action/prodottiActions"
 import { FaShoppingCart } from "react-icons/fa"
 import prodottiImg from "../prodottiImg.json"
 
-import { fetchiconaCarrello } from "../redux/action/IconaCarrelloAction"
+import { fetchiconaCarrello } from "../redux/action/iconaCarrelloAction"
 
 const Prodotti = function () {
   const prodotti = useSelector((state) => state.prodotti.prodotti)
