@@ -32,7 +32,10 @@ export const loginUser = (credentials) => {
     dispatch(loginRequest())
 
     axios
-      .post("http://localhost:8080/auth/login", credentials)
+      .post(
+        "https://conservation-umeko-stella02-65bf7872.koyeb.app/auth/login",
+        credentials
+      )
       .then((response) => {
         const token = response.data
 

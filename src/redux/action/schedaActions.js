@@ -11,14 +11,17 @@ export const fetchScheda = (muscoliId) => {
     try {
       const token = getState().authLog.token
 
-      const response = await fetch("http://localhost:8080/scheda", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ muscoliId }),
-      })
+      const response = await fetch(
+        "https://conservation-umeko-stella02-65bf7872.koyeb.app/scheda",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ muscoliId }),
+        }
+      )
 
       if (!response.ok) {
         throw new Error("Errore nella generazione della scheda")
@@ -40,13 +43,16 @@ export const fetchSchedePubbliche = () => async (dispatch, getState) => {
   try {
     const token = getState().authLog.token
 
-    const res = await fetch("http://localhost:8080/save/schede/pubbliche", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
+    const res = await fetch(
+      "https://conservation-umeko-stella02-65bf7872.koyeb.app/save/schede/pubbliche",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    )
 
     const data = await res.json()
     dispatch({ type: FETCH_SCHEDE_PUBBLICHE_SUCCESS, payload: data })

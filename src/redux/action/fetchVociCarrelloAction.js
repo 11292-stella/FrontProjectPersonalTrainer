@@ -9,11 +9,14 @@ export const fetchCarrello = () => {
     try {
       const token = getState().authLog.token
 
-      const response = await fetch("http://localhost:8080/carrello/utente", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      const response = await fetch(
+        "https://conservation-umeko-stella02-65bf7872.koyeb.app/carrello/utente",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
 
       if (!response.ok) {
         throw new Error("Errore durante il fetch carrello")

@@ -10,7 +10,7 @@ import {
   AGGIUNGI_AL_CARRELLO_REQUEST,
   AGGIUNGI_AL_CARRELLO_SUCCESS,
   AGGIUNGI_AL_CARRELLO_FAILURE,
-} from "../action/IconaCarrelloAction"
+} from "../action/iconaCarrelloAction"
 
 const initialState = {
   voci: [],

@@ -9,14 +9,17 @@ export const fetchiconaCarrello = (voceCarrelloDto) => {
     try {
       const token = getState().authLog.token
 
-      const response = await fetch("http://localhost:8080/carrello", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(voceCarrelloDto),
-      })
+      const response = await fetch(
+        "https://conservation-umeko-stella02-65bf7872.koyeb.app/carrello",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(voceCarrelloDto),
+        }
+      )
 
       if (!response.ok) {
         throw new Error("Errore durante l'aggiunta al carrello")

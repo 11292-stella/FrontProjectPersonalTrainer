@@ -14,14 +14,17 @@ export const postFeedback = (feedback) => {
     const token = getState().authLog.token
 
     try {
-      const response = await fetch("http://localhost:8080/feedback", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(feedback),
-      })
+      const response = await fetch(
+        "https://conservation-umeko-stella02-65bf7872.koyeb.app/feedback",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(feedback),
+        }
+      )
 
       if (!response.ok) {
         throw new Error("Errore nel salvataggio del feedback")
@@ -43,7 +46,7 @@ export const fetchFeedbacks = (schedaId) => {
       const token = getState().authLog.token
 
       const res = await fetch(
-        `http://localhost:8080/feedback/scheda/${schedaId}`,
+        `https://conservation-umeko-stella02-65bf7872.koyeb.app/feedback/scheda/${schedaId}`,
         {
           method: "GET",
           headers: {
